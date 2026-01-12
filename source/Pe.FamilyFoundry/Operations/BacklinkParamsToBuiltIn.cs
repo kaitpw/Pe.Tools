@@ -1,7 +1,7 @@
 using Pe.FamilyFoundry.OperationSettings;
-using PeExtensions.FamDocument;
-using PeExtensions.FamManager;
-using PeExtensions.FamParameter;
+using Pe.Extensions.FamDocument;
+using Pe.Extensions.FamManager;
+using Pe.Extensions.FamParameter;
 
 namespace Pe.FamilyFoundry.Operations;
 

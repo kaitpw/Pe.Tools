@@ -1,13 +1,22 @@
-using Pe.Application.Commands.FamilyFoundry.Core;
-using Pe.Application.Commands.FamilyFoundry.Core.OperationGroups;
-using Pe.Application.Commands.FamilyFoundry.Core.Operations;
-using Pe.Application.Commands.FamilyFoundry.Core.OperationSettings;
-using Pe.Application.Commands.FamilyFoundry.Core.Snapshots;
-using PeRevit.Lib;
-using PeRevit.Ui;
-using PeUtils.Files;
+
+using Autodesk.Revit.Attributes;
+using Autodesk.Revit.UI;
+using Pe.Application.Commands.FamilyFoundry.FamilyFoundryUi;
+using Pe.FamilyFoundry;
+using Pe.FamilyFoundry.OperationGroups;
+using Pe.FamilyFoundry.Operations;
+using Pe.FamilyFoundry.OperationSettings;
+using Pe.FamilyFoundry.Snapshots;
+using Pe.Global;
+using Pe.Global.Services.Storage;
+using Pe.Library.Revit.Lib;
+using Pe.Library.Revit.Ui;
+using Pe.Library.Utils.Files;
+using Serilog.Events;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
+using System.IO;
 
 namespace Pe.Application.Commands.FamilyFoundry;
 
@@ -37,7 +46,7 @@ public class CmdFFMigrator : IExternalCommand {
             window.Show();
             return Result.Succeeded;
         } catch (Exception ex) {
-            new Ballogger().Add(Log.ERR, new StackFrame(), ex, true).Show();
+            new Ballogger().Add(LogEventLevel.Error, new StackFrame(), ex, true).Show();
             return Result.Cancelled;
         }
     }
@@ -51,7 +60,7 @@ public class CmdFFMigrator : IExternalCommand {
             "FF Migrator");
 
         new Ballogger()
-            .Add(Log.INFO, new StackFrame(), $"Schema regenerated for {context.SelectedProfile.TextPrimary}")
+            .Add(LogEventLevel.Information, new StackFrame(), $"Schema regenerated for {context.SelectedProfile.TextPrimary}")
             .Show();
     }
 
@@ -61,7 +70,7 @@ public class CmdFFMigrator : IExternalCommand {
         var filePath = context.SelectedProfile.FilePath;
         if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath)) {
             new Ballogger()
-                .Add(Log.WARN, new StackFrame(), $"Profile file not found: {filePath}")
+                .Add(LogEventLevel.Warning, new StackFrame(), $"Profile file not found: {filePath}")
                 .Show();
             return;
         }
@@ -73,7 +82,7 @@ public class CmdFFMigrator : IExternalCommand {
         if (ctx.SelectedProfile == null) return;
         if (!ctx.PreviewData.IsValid) {
             new Ballogger()
-                .Add(Log.ERR, new StackFrame(), "Cannot process families - profile has validation errors")
+                .Add(LogEventLevel.Error, new StackFrame(), "Cannot process families - profile has validation errors")
                 .Show();
             return;
         }
@@ -123,7 +132,7 @@ public class CmdFFMigrator : IExternalCommand {
 
         var balloon = new Ballogger();
         foreach (var logCtx in logs.contexts)
-            _ = balloon.Add(Log.INFO, new StackFrame(), $"Processed {logCtx.FamilyName} in {logCtx.TotalMs}ms");
+            _ = balloon.Add(LogEventLevel.Information, new StackFrame(), $"Processed {logCtx.FamilyName} in {logCtx.TotalMs}ms");
         balloon.Show();
 
         // Prompt user to place families in a view for testing

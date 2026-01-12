@@ -1,4 +1,4 @@
-namespace PeUi.Core.Services;
+namespace Pe.Ui.Core.Services;
 
 /// <summary>
 ///     Pre-computed searchable metadata for palette items to avoid repeated string operations.

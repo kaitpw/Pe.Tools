@@ -1,7 +1,8 @@
+using Pe.Extensions.FamDocument;
 using Pe.FamilyFoundry;
 using Pe.FamilyFoundry.Aggregators.Snapshots;
 using Pe.FamilyFoundry.Snapshots;
-using PeExtensions.FamDocument;
+using System.Diagnostics;
 
 /// <summary>
 ///     Fluent pipeline for family processing. Owns context lifecycle and returns populated results via out parameter.
@@ -164,7 +165,7 @@ public static class FamilyProcessingPipelineExtensions {
             throw new InvalidOperationException("Context must be set before calling Process()");
 
         var sw = Stopwatch.StartNew();
-        _ = pipeline.FamDoc.Process((TContext)(object)pipeline.Context, callbacks, out var results);
+        _ = pipeline.FamDoc.Process<TContext, OperationLog>((TContext)(object)pipeline.Context, callbacks, out var results);
         sw.Stop();
 
         pipeline.Context.OperationLogs = results;

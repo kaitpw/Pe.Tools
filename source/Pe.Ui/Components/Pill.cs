@@ -1,6 +1,6 @@
 #nullable enable
 
-using PeUi.Core;
+using Pe.Ui.Core;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -9,7 +9,7 @@ using Binding = System.Windows.Data.Binding;
 using TextBlock = System.Windows.Controls.TextBlock;
 using FontWeight = System.Windows.FontWeight;
 
-namespace PeUi.Components;
+namespace Pe.Ui.Components;
 
 /// <summary>
 ///     Reusable pill component for displaying badges/labels.

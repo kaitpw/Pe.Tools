@@ -1,6 +1,6 @@
 #nullable enable
 
-using PeUi.Core;
+using Pe.Ui.Core;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -10,7 +10,7 @@ using System.Windows.Threading;
 using Wpf.Ui.Markup;
 using WpfUiRichTextBox = Wpf.Ui.Controls.RichTextBox;
 
-namespace PeUi.Components;
+namespace Pe.Ui.Components;
 
 /// <summary>
 ///     Selectable text display component with keyboard navigation

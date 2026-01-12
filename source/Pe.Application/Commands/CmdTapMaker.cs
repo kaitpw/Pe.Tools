@@ -1,8 +1,12 @@
+using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB.Mechanical;
+using Autodesk.Revit.UI;
 using Autodesk.Revit.UI.Selection;
-using PeRevit.Lib;
-using PeRevit.Mep.Mechanical;
-using PeRevit.Ui;
+using Pe.Library.Revit.Lib;
+using Pe.Library.Revit.Mep.Mechanical;
+using Pe.Library.Revit.Ui;
+using Serilog.Events;
+using System.Diagnostics;
 
 namespace Pe.Application.Commands;
 
@@ -95,18 +99,18 @@ public class CmdTapMaker : IExternalCommand {
 
             if (tapError is not null) {
                 _ = trans.RollBack();
-                _ = balloon.Add(Log.ERR, new StackFrame(), tapError);
+                _ = balloon.Add(LogEventLevel.Error, new StackFrame(), tapError);
                 balloon.Show();
                 return false;
             }
 
             _ = trans.Commit();
-            _ = balloon.Add(Log.INFO, new StackFrame(),
+            _ = balloon.Add(LogEventLevel.Information, new StackFrame(),
                 $"Created a {tapSizeInches}\" tap successfully (tap ID: {tap.Id}).");
             balloon?.Show();
             return true;
         } catch (Exception ex) {
-            _ = balloon.Add(Log.ERR, new StackFrame(), ex);
+            _ = balloon.Add(LogEventLevel.Error, new StackFrame(), ex);
             balloon.Show();
             return false; // Don't throw, just return false so user can see debug info
         }

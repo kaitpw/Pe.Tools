@@ -1,4 +1,4 @@
-namespace PeUi.Core;
+namespace Pe.Ui.Core;
 
 /// <summary>
 ///     Record representing item usage data for storage

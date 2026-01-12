@@ -1,7 +1,9 @@
-﻿namespace Pe.Library.Revit.Ui;
+﻿using Autodesk.Revit.UI;
 
-internal class UiHelpers {
-    internal static RibbonPanel CreateRibbonPanel(
+namespace Pe.Library.Revit.Ui;
+
+public class UiHelpers {
+    public static RibbonPanel CreateRibbonPanel(
         UIControlledApplication app,
         string tabName,
         string panelName
@@ -10,7 +12,7 @@ internal class UiHelpers {
         return curPanel;
     }
 
-    internal static RibbonPanel GetRibbonPanelByName(
+    public static RibbonPanel GetRibbonPanelByName(
         UIControlledApplication app,
         string tabName,
         string panelName
@@ -24,7 +26,7 @@ internal class UiHelpers {
     }
 }
 
-internal class CommandAvailability : IExternalCommandAvailability {
+public class CommandAvailability : IExternalCommandAvailability {
     public bool IsCommandAvailable(
         UIApplication applicationData,
         CategorySet selectedCategories

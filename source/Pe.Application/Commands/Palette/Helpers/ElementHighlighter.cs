@@ -1,5 +1,7 @@
 #nullable enable
 
+using Autodesk.Revit.UI;
+
 namespace AddinPaletteSuite.Helpers;
 
 /// <summary>

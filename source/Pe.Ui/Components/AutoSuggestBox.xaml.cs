@@ -1,6 +1,6 @@
 #nullable enable
 
-using PeUi.Core;
+using Pe.Ui.Core;
 using System.Collections;
 using System.Collections.ObjectModel;
 using System.Globalization;
@@ -12,7 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using Visibility = System.Windows.Visibility;
 
-namespace PeUi.Components;
+namespace Pe.Ui.Components;
 
 /// <summary>
 ///     Converter for string to visibility (empty/null = Collapsed)

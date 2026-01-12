@@ -1,6 +1,6 @@
 #nullable enable
 
-using PeUi.Core;
+using Pe.Ui.Core;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
@@ -8,7 +8,7 @@ using System.Windows.Input;
 using System.Windows.Media.Animation;
 using System.Windows.Threading;
 
-namespace PeUi.Components;
+namespace Pe.Ui.Components;
 
 /// <summary>
 ///     Non-generic base class for FilterBox.xaml

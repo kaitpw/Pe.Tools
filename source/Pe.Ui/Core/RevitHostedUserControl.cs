@@ -1,6 +1,6 @@
 using System.Windows.Controls;
 
-namespace PeUi.Core;
+namespace Pe.Ui.Core;
 
 /// <summary>
 ///     Base class for all UserControls in PE_Tools.

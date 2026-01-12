@@ -1,9 +1,12 @@
-using Nice3point.Revit.Extensions;
-using PeRevit.Lib;
-using PeRevit.Ui;
-using PeServices.Storage;
-using PeUi.Core;
-using PeUi.Core.Services;
+using Autodesk.Revit.Attributes;
+using Autodesk.Revit.UI;
+using Pe.Global.Services.Storage;
+using Pe.Library.Revit.Lib;
+using Pe.Library.Revit.Ui;
+using Pe.Ui.Core;
+using Pe.Ui.Core.Services;
+using Serilog.Events;
+using System.Diagnostics;
 using System.Windows.Media.Imaging;
 using Color = System.Windows.Media.Color;
 
@@ -34,20 +37,20 @@ public class CmdSerializeSchedule : IExternalCommand {
                             var filename = outputDir.Json($"{spec.Name}.json").Write(spec);
 
                             var balloon = new Ballogger();
-                            _ = balloon.Add(Log.INFO, new StackFrame(),
+                            _ = balloon.Add(LogEventLevel.Information, new StackFrame(),
                                 $"Serialized schedule '{item.Schedule.Name}' to {filename}");
 
                             // Report what was serialized
-                            _ = balloon.Add(Log.INFO, new StackFrame(),
+                            _ = balloon.Add(LogEventLevel.Information, new StackFrame(),
                                 $"Fields: {spec.Fields.Count} ({spec.Fields.Count(f => f.CalculatedType != null)} calculated)");
 
                             if (spec.SortGroup.Count > 0) {
-                                _ = balloon.Add(Log.INFO, new StackFrame(),
+                                _ = balloon.Add(LogEventLevel.Information, new StackFrame(),
                                     $"Sort/Group: {spec.SortGroup.Count}");
                             }
 
                             if (spec.Filters.Count > 0) {
-                                _ = balloon.Add(Log.INFO, new StackFrame(),
+                                _ = balloon.Add(LogEventLevel.Information, new StackFrame(),
                                     $"Filters: {spec.Filters.Count}");
                             }
 
@@ -58,13 +61,13 @@ public class CmdSerializeSchedule : IExternalCommand {
                                     .Select(f => f.HeaderGroup)
                                     .Distinct()
                                     .Count();
-                                _ = balloon.Add(Log.INFO, new StackFrame(),
+                                _ = balloon.Add(LogEventLevel.Information, new StackFrame(),
                                     $"Header Groups: {uniqueGroups} group(s) across {headerGroupCount} field(s)");
                             }
 
                             balloon.Show();
                         } catch (Exception ex) {
-                            new Ballogger().Add(Log.ERR, new StackFrame(), ex, true).Show();
+                            new Ballogger().Add(LogEventLevel.Error, new StackFrame(), ex, true).Show();
                         }
 
                         return Task.CompletedTask;
@@ -81,7 +84,7 @@ public class CmdSerializeSchedule : IExternalCommand {
 
             return Result.Succeeded;
         } catch (Exception ex) {
-            new Ballogger().Add(Log.ERR, new StackFrame(), ex, true).Show();
+            new Ballogger().Add(LogEventLevel.Error, new StackFrame(), ex, true).Show();
             return Result.Failed;
         }
     }

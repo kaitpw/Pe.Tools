@@ -1,5 +1,5 @@
-using PeUi.Core;
-using PeUi.ViewModels;
+using Pe.Ui.Core;
+using Pe.Ui.ViewModels;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -8,7 +8,7 @@ using Visibility = System.Windows.Visibility;
 using Grid = System.Windows.Controls.Grid;
 
 
-namespace PeUi.Components;
+namespace Pe.Ui.Components;
 
 /// <summary>
 ///     Attached property holder and common close behavior for Palette.
@@ -69,7 +69,7 @@ public sealed partial class Palette : RevitHostedUserControl, ICloseRequestable 
     ///     Initializes the palette with type-specific behavior via composition.
     ///     This must be called after construction to wire up generic-specific logic.
     /// </summary>
-    internal void Initialize<TItem>(
+    public void Initialize<TItem>(
         PaletteViewModel<TItem> viewModel,
         IEnumerable<PaletteAction<TItem>> actions,
         CustomKeyBindings customKeyBindings = null,

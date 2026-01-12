@@ -1,6 +1,6 @@
 using System.Windows.Input;
 
-namespace PeUi.Core;
+namespace Pe.Ui.Core;
 
 /// <summary>
 ///     Non-generic base class for ActionBinding to enable type-erased storage

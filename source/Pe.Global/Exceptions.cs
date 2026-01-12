@@ -1,5 +1,5 @@
-using NJsonSchema.Validation;
-using PeServices.Storage.Core.Json;
+using Pe.Global;
+using ValidationError = NJsonSchema.Validation.ValidationError;
 
 /// <summary>
 ///     Exception thrown when an element has intersections with other elements

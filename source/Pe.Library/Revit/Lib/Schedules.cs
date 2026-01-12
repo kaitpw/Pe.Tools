@@ -1,9 +1,9 @@
 using Autodesk.Revit.DB.Structure;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using Pe.Library.Services.Storage.Core.Json;
-using Pe.Library.Services.Storage.Core.Json.SchemaProcessors;
-using Pe.Library.Services.Storage.Core.Json.SchemaProviders;
+using Pe.Global.Services.Storage.Core.Json;
+using Pe.Global.Services.Storage.Core.Json.SchemaProcessors;
+using Pe.Global.Services.Storage.Core.Json.SchemaProviders;
 using System.ComponentModel;
 
 namespace Pe.Library.Revit.Lib;
@@ -34,7 +34,7 @@ public class ScheduleSpec {
 public class ScheduleFieldSpec {
     [Description(
         "The parameter name to display in this column (e.g., 'Family and Type', 'Mark', 'PE_M_Fan_FlowRate').")]
-    [SchemaExamples(typeof(SchedulableParameterNamesProvider))]
+    // [SchemaExamples(typeof(SchedulableParameterNamesProvider))]
     public required string ParameterName { get; set; }
 
     [Description("Custom header text to display instead of the parameter name. Leave empty to use parameter name.")]
@@ -77,7 +77,7 @@ public enum CalculatedFieldType {
 
 public class ScheduleSortGroupSpec {
     [Description("The field name to sort/group by.")]
-    [SchemaExamples(typeof(SchedulableParameterNamesProvider))]
+    // [SchemaExamples(typeof(SchedulableParameterNamesProvider))]
     public required string FieldName { get; init; }
 
     [Description("Sort direction (Ascending or Descending).")]
@@ -96,7 +96,7 @@ public class ScheduleSortGroupSpec {
 
 public class ScheduleFilterSpec {
     [Description("The field name to filter on.")]
-    [SchemaExamples(typeof(SchedulableParameterNamesProvider))]
+    // [SchemaExamples(typeof(SchedulableParameterNamesProvider))]
     public required string FieldName { get; init; }
 
     [Description("The type of comparison to perform (Equal, Contains, GreaterThan, etc.).")]

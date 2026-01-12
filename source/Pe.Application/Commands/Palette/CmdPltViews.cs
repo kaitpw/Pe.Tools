@@ -1,8 +1,12 @@
+using Autodesk.Revit.Attributes;
+using Autodesk.Revit.UI;
 using Nice3point.Revit.Extensions;
-using PeExtensions.UiApplication;
-using PeRevit.Ui;
-using PeServices.Storage;
-using PeUi.Core;
+using Pe.Extensions.UiApplication;
+using Pe.Global.Services.Storage;
+using Pe.Library.Revit.Ui;
+using Pe.Ui.Core;
+using Serilog.Events;
+using System.Diagnostics;
 using System.Windows.Media.Imaging;
 using Color = System.Windows.Media.Color;
 
@@ -38,13 +42,14 @@ public class CmdPltViews : IExternalCommand {
 
             var window = PaletteFactory.Create("View Palette", items, actions,
                 new PaletteOptions<ViewPaletteItem> {
-                    Storage = new Storage(nameof(CmdPltViews)), PersistenceKey = item => item.View.Id.ToString()
+                    Storage = new Storage(nameof(CmdPltViews)),
+                    PersistenceKey = item => item.View.Id.ToString()
                 });
             window.Show();
 
             return Result.Succeeded;
         } catch (Exception ex) {
-            new Ballogger().Add(Log.ERR, new StackFrame(), ex, true).Show();
+            new Ballogger().Add(LogEventLevel.Error, new StackFrame(), ex, true).Show();
             return Result.Failed;
         }
     }

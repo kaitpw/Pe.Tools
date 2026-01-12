@@ -7,6 +7,8 @@ public readonly struct Result<T> {
         this._error = error;
     }
 
+    public static Result<T> Succeeded { get; set; }
+
     public void Deconstruct(out T value, out Exception error) {
         value = this._value;
         error = this._error;

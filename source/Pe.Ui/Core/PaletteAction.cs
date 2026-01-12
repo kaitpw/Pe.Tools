@@ -1,7 +1,7 @@
 using System.Windows;
 using System.Windows.Input;
 
-namespace PeUi.Core;
+namespace Pe.Ui.Core;
 
 /// <summary>
 ///     Represents a single action that can be triggered in the palette.

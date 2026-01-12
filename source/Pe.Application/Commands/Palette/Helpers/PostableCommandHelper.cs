@@ -1,9 +1,9 @@
 using AddinPaletteSuite.Commands;
-using PeRevit.Lib;
-using PeRevit.Ui;
-using PeServices.Storage;
-using PeServices.Storage.Core;
-using PeUi.Core;
+using Pe.Global.Services.Storage;
+using Pe.Global.Services.Storage.Core.Json;
+using Pe.Library.Revit.Lib;
+using Pe.Library.Revit.Ui;
+using Pe.Ui.Core;
 
 namespace AddinPaletteSuite.Helpers;
 

@@ -3,26 +3,7 @@ using Pe.Library.Revit.Mep.Mechanical;
 
 namespace Pe.Library.Revit.Lib;
 
-internal class Filters {
-    /// <summary>
-    ///     Retrieves all elements of a specified type from the Revit document.
-    ///     This is a general method for finding multiple elements.
-    /// </summary>
-    /// <typeparam name="T">The type of Element to retrieve. Must inherit from Autodesk.Revit.DB.Element.</typeparam>
-    /// <returns>
-    ///     An IEnumerable of elements of the specified type that match the predicate. Returns an empty enumerable if none
-    ///     are found.
-    /// </returns>
-    public static IEnumerable<T> AllElementsOfType<T>(
-        Document doc,
-        Func<T, bool> filter = null)
-        where T : Element {
-        var elements = new FilteredElementCollector(doc).OfClass(typeof(T)).OfType<T>();
-
-        if (filter != null)
-            return elements.Where(filter);
-        return elements;
-    }
+public class Filters {
 
     /// <summary>
     ///     Retrieves the first element of a specified type from the Revit document.

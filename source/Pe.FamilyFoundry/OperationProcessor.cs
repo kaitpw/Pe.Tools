@@ -1,7 +1,8 @@
 using Pe.FamilyFoundry.Snapshots;
-using PeExtensions.FamDocument;
+using Pe.Extensions.FamDocument;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
 
 namespace Pe.FamilyFoundry;
 
@@ -187,7 +188,7 @@ public class OperationProcessor(
                 _ = this.OpenDoc
                     .GetFamilyDocument()
                     .EnsureDefaultType()
-                    .ProcessAndSaveVariant(outputDirectory, variant,
+                    .ProcessAndSaveVariant<OperationLog>(outputDirectory, variant,
                         famDoc => {
                             _ = famDoc.Process(context, variantFuncs, out var logs);
                             return logs;

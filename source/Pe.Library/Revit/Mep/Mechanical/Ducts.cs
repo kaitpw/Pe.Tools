@@ -1,10 +1,12 @@
 ﻿using Autodesk.Revit.DB.Mechanical;
 using Nice3point.Revit.Extensions;
 using Pe.Library.Revit.Ui;
+using Serilog.Events;
+using System.Diagnostics;
 
 namespace Pe.Library.Revit.Mep.Mechanical;
 
-internal class Ducts {
+public class Ducts {
     /// <summary>
     ///     Create a proper takeoff fitting using Document.NewTakeoffFitting
     ///     This ensures the tap is connected to the duct system
@@ -58,13 +60,13 @@ internal class Ducts {
                 branchEnd
             );
             if (branchDuct is null) return new InvalidOperationException("Branch duct is null, creation was faulty");
-            _ = balloon?.AddDebug(Log.INFO, new StackFrame(),
+            _ = balloon?.AddDebug(LogEventLevel.Information, new StackFrame(),
                 $"Created branch duct on {level.Name} with DuctType: {ductType.Name}, SystemType: {systemType.Name}");
 
             // Set the duct diameter to the correct tap size
             var setDiamSuccess = branchDuct.FindParameter(BuiltInParameter.RBS_CURVE_DIAMETER_PARAM).Set(tapSizeFeet);
             if (!setDiamSuccess)
-                _ = balloon?.Add(Log.WARN, new StackFrame(), "Branch duct's diameter could not be set");
+                _ = balloon?.Add(LogEventLevel.Warning, new StackFrame(), "Branch duct's diameter could not be set");
 
             // Get the connector from the branch duct closest to the main duct
             var (branchConns, _) = Connectors.GetClosestToPoint(branchDuct, location);

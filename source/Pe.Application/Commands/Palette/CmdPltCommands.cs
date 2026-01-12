@@ -1,10 +1,13 @@
 using AddinPaletteSuite.Commands;
 using AddinPaletteSuite.Helpers;
-using PeServices.Storage;
-using PeUi.Components;
-using PeUi.Core;
-using PeUi.Core.Services;
-using PeUi.ViewModels;
+using Autodesk.Revit.Attributes;
+using Autodesk.Revit.UI;
+using Pe.Global.Services.Storage;
+using Pe.Ui.Components;
+using Pe.Ui.Core;
+using Pe.Ui.Core.Services;
+using Pe.Ui.ViewModels;
+using System.Diagnostics;
 using System.Text.RegularExpressions;
 
 namespace AddinPaletteSuite.Cmds;
@@ -95,14 +98,14 @@ public static class CommandPaletteService {
                 Name = "Execute",
                 Execute = async item => {
                     if (item is PostableCommandItem cmdItem) {
-                        var (success, error) = PeRevit.Lib.Commands.Execute(uiApp, cmdItem.Command);
+                        var (success, error) = Pe.Library.Revit.Lib.Commands.Execute(uiApp, cmdItem.Command);
                         if (error is not null) Debug.WriteLine("Error: " + error.Message + error.StackTrace);
                         if (success) commandHelper.UpdateCommandUsage(cmdItem.Command);
                     }
                 },
                 CanExecute = item => {
                     if (item is PostableCommandItem cmdItem)
-                        return PeRevit.Lib.Commands.IsAvailable(uiApp, cmdItem.Command);
+                        return Pe.Library.Revit.Lib.Commands.IsAvailable(uiApp, cmdItem.Command);
                     return false;
                 }
             }

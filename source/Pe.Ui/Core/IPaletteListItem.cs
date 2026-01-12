@@ -1,7 +1,7 @@
 using System.Windows.Media.Imaging;
 using WpfColor = System.Windows.Media.Color;
 
-namespace PeUi.Core;
+namespace Pe.Ui.Core;
 
 /// <summary>
 ///     Interface that all palette items must implement for display and interaction

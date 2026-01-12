@@ -1,8 +1,12 @@
-using PeExtensions.UiApplication;
-using PeRevit.Ui;
-using PeServices.Storage;
-using PeUi.Core;
-using PeUi.Core.Services;
+using Autodesk.Revit.Attributes;
+using Autodesk.Revit.UI;
+using Pe.Extensions.UiApplication;
+using Pe.Global.Services.Storage;
+using Pe.Library.Revit.Ui;
+using Pe.Ui.Core;
+using Pe.Ui.Core.Services;
+using Serilog.Events;
+using System.Diagnostics;
 using System.Windows.Media.Imaging;
 using Color = System.Windows.Media.Color;
 
@@ -36,7 +40,7 @@ public class CmdPltAllViews : IExternalCommand {
 
             return Result.Succeeded;
         } catch (Exception ex) {
-            new Ballogger().Add(Log.ERR, new StackFrame(), ex, true).Show();
+            new Ballogger().Add(LogEventLevel.Error, new StackFrame(), ex, true).Show();
             return Result.Failed;
         }
     }

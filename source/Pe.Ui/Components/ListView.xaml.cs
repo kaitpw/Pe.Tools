@@ -1,4 +1,4 @@
-using PeUi.Core;
+using Pe.Ui.Core;
 using System.Collections;
 using System.Windows;
 using System.Windows.Controls;
@@ -6,7 +6,7 @@ using System.Windows.Input;
 using WpfUiListViewItem = Wpf.Ui.Controls.ListViewItem;
 
 
-namespace PeUi.Components;
+namespace Pe.Ui.Components;
 
 public partial class ListView : RevitHostedUserControl {
     public static readonly DependencyProperty ItemsSourceProperty = DependencyProperty.Register(

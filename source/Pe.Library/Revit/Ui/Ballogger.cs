@@ -1,12 +1,16 @@
 ﻿using Autodesk.Internal.InfoCenter;
 using Autodesk.Windows;
-using Pe.Library.Services.Storage;
+using Pe.Global.Services.Storage;
+using Serilog.Events;
+using System.Diagnostics;
+using System.Reflection;
+using System.Text;
 using System.Windows;
 
 namespace Pe.Library.Revit.Ui;
 
 /// <summary>Message collector for accumulating messages, then showing all at once</summary>
-internal class Ballogger {
+public class Ballogger {
     private const string FmtNormal = "{0}: {1}";
     private const string FmtMethod = "{0} ({1}): {2}";
     private const string FmtErrorTrace = "{0} ({1}): {2}\n{3}";
@@ -17,7 +21,7 @@ internal class Ballogger {
     public void Clear() => this._messages.Clear();
 
     /// <summary>Add a normal message (with the method's name)</summary>
-    public Ballogger Add(Log log, StackFrame sf, string message) {
+    public Ballogger Add(LogEventLevel log, StackFrame sf, string message) {
         if (string.IsNullOrWhiteSpace(message)) return this;
         if (sf is null)
             this._messages.Add(string.Format(FmtNormal, log, message.Trim()));
@@ -31,7 +35,7 @@ internal class Ballogger {
 
 
     /// <summary>Add an error message (with an optional stack trace)</summary>
-    public Ballogger Add(Log log, StackFrame sf, Exception ex, bool trace = false) {
+    public Ballogger Add(LogEventLevel log, StackFrame sf, Exception ex, bool trace = false) {
         var method = sf.GetMethod()?.Name ?? StrNoMethod;
         var exDemystified = ex.ToStringDemystified();
         this._messages.Add(trace
@@ -42,7 +46,7 @@ internal class Ballogger {
 
 
     /// <summary>Add a DEBUG build message</summary>
-    public Ballogger AddDebug(Log log, StackFrame sf, string message) {
+    public Ballogger AddDebug(LogEventLevel log, StackFrame sf, string message) {
         var method = sf.GetMethod()?.Name ?? StrNoMethod;
         var prefix = "DEBUG " + log;
         if (!string.IsNullOrWhiteSpace(message))
@@ -51,7 +55,7 @@ internal class Ballogger {
     }
 
     /// <summary>Add a DEBUG build error message (with an optional stack trace)</summary>
-    public Ballogger AddDebug(Log log, StackFrame sf, Exception ex, bool trace = false) {
+    public Ballogger AddDebug(LogEventLevel log, StackFrame sf, Exception ex, bool trace = false) {
         var method = sf.GetMethod()?.Name ?? StrNoMethod;
         var prefix = "DEBUG " + log;
         this._messages.Add(trace
@@ -66,7 +70,7 @@ internal class Ballogger {
         string title = null
     ) {
         var combinedMessage = new StringBuilder();
-        if (this._messages.Count == 0) _ = this.Add(Log.WARN, null, "No messages to display");
+        if (this._messages.Count == 0) _ = this.Add(LogEventLevel.Warning, null, "No messages to display");
 
         foreach (var message in this._messages) {
             Storage.GlobalDir().LogTxt(message);
@@ -92,7 +96,7 @@ internal class Ballogger {
     ) {
         var combinedMessage = new StringBuilder();
         _ = combinedMessage.AppendLine(new string('-', 35));
-        if (this._messages.Count == 0) _ = this.Add(Log.WARN, null, "No messages to display");
+        if (this._messages.Count == 0) _ = this.Add(LogEventLevel.Warning, null, "No messages to display");
 
         foreach (var message in this._messages) {
             Storage.GlobalDir().LogTxt(message);

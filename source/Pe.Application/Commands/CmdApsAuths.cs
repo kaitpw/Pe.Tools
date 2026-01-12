@@ -1,6 +1,10 @@
-using PeRevit.Ui;
-using PeServices.Aps;
-using PeServices.Storage;
+using Autodesk.Revit.Attributes;
+using Autodesk.Revit.UI;
+using Pe.Global.Services.Aps;
+using Pe.Global.Services.Storage;
+using Pe.Library.Revit.Ui;
+using Serilog.Events;
+using System.Diagnostics;
 
 namespace Pe.Application.Commands;
 
@@ -13,10 +17,10 @@ public class CmdApsAuthNormal : IExternalCommand {
         try {
             var auth = new Aps(new ApsAuthNormal());
             var token = auth.GetToken();
-            new Ballogger().AddDebug(Log.INFO, new StackFrame(), token).Show();
+            new Ballogger().AddDebug(LogEventLevel.Information, new StackFrame(), token).Show();
             return Result.Succeeded;
         } catch (Exception ex) {
-            new Ballogger().Add(Log.ERR, null, ex.Message).Show();
+            new Ballogger().Add(LogEventLevel.Error, null, ex.Message).Show();
             return Result.Failed;
         }
     }
@@ -31,10 +35,10 @@ public class CmdApsAuthPKCE : IExternalCommand {
         try {
             var aps = new Aps(new ApsAuthPkce());
             var token = aps.GetToken();
-            new Ballogger().AddDebug(Log.INFO, new StackFrame(), token).Show();
+            new Ballogger().AddDebug(LogEventLevel.Information, new StackFrame(), token).Show();
             return Result.Succeeded;
         } catch (Exception ex) {
-            new Ballogger().Add(Log.ERR, null, ex.Message).Show();
+            new Ballogger().Add(LogEventLevel.Error, null, ex.Message).Show();
             return Result.Failed;
         }
     }

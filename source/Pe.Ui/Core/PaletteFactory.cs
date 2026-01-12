@@ -1,11 +1,11 @@
-using PeServices.Storage;
-using PeUi.Components;
-using PeUi.Core.Services;
-using PeUi.ViewModels;
+using Pe.Global.Services.Storage;
+using Pe.Ui.Components;
+using Pe.Ui.Core.Services;
+using Pe.Ui.ViewModels;
 using System.Windows;
 using System.Windows.Input;
 
-namespace PeUi.Core;
+namespace Pe.Ui.Core;
 
 /// <summary>
 ///     Factory for creating palette windows using composition instead of inheritance.

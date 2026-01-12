@@ -1,7 +1,7 @@
 #nullable enable
 using System.Windows.Input;
 
-namespace PeUi.Core;
+namespace Pe.Ui.Core;
 
 /// <summary>
 ///     Interface for popovers that can exit and return focus to their parent

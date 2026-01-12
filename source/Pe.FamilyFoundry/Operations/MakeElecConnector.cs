@@ -1,8 +1,8 @@
 using Autodesk.Revit.DB.Electrical;
 using Nice3point.Revit.Extensions;
-using PeExtensions.FamDocument;
-using PeServices.Storage.Core.Json.SchemaProcessors;
-using PeServices.Storage.Core.Json.SchemaProviders;
+using Pe.Extensions.FamDocument;
+using Pe.Global.Services.Storage.Core.Json.SchemaProcessors;
+using Pe.Global.Services.Storage.Core.Json.SchemaProviders;
 using System.ComponentModel.DataAnnotations;
 
 namespace Pe.FamilyFoundry.Operations;

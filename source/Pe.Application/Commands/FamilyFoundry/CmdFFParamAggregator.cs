@@ -1,13 +1,17 @@
-using Pe.Application.Commands.FamilyFoundry.Core.Aggregators;
-using Pe.Application.Commands.FamilyFoundry.Core.Snapshots;
-using PeRevit.Lib;
-using PeRevit.Ui;
-using PeServices.Storage;
-using PeServices.Storage.Core.Json.SchemaProcessors;
-using PeServices.Storage.Core.Json.SchemaProviders;
-using PeUtils.Files;
+using Autodesk.Revit.Attributes;
+using Autodesk.Revit.UI;
+using Pe.FamilyFoundry.Aggregators;
+using Pe.FamilyFoundry.Snapshots;
+using Pe.Global.Services.Storage;
+using Pe.Global.Services.Storage.Core.Json.SchemaProcessors;
+using Pe.Global.Services.Storage.Core.Json.SchemaProviders;
+using Pe.Library.Revit.Lib;
+using Pe.Library.Revit.Ui;
+using Pe.Library.Utils.Files;
+using Serilog.Events;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
 
 namespace Pe.Application.Commands.FamilyFoundry;
 
@@ -49,7 +53,7 @@ public class CmdFFParamAggregator : IExternalCommand {
                     ? $"No families found for categories: {string.Join(", ", settings.CategoryFilter.Select(c => c.Name))}"
                     : "No families found in the document.";
                 new Ballogger()
-                    .Add(Log.WARN, new StackFrame(), filterMsg)
+                    .Add(LogEventLevel.Warning, new StackFrame(), filterMsg)
                     .Show();
                 return Result.Cancelled;
             }
@@ -63,7 +67,7 @@ public class CmdFFParamAggregator : IExternalCommand {
             var filterInfo = settings.CategoryFilter.Any()
                 ? $" (filtered to {string.Join(", ", settings.CategoryFilter.Select(c => c.Name))})"
                 : " (all categories)";
-            _ = balloon.Add(Log.INFO, new StackFrame(), $"Analyzing {families.Count} families{filterInfo}...");
+            _ = balloon.Add(LogEventLevel.Information, new StackFrame(), $"Analyzing {families.Count} families{filterInfo}...");
 
             var aggregatedData = FamilyParamAggregator.Aggregate(doc, collectorQueue, families);
             var aggregatedParamDatas = aggregatedData as AggregatedParamData[] ?? aggregatedData.ToArray();
@@ -73,7 +77,7 @@ public class CmdFFParamAggregator : IExternalCommand {
 
             var csvPath = FamilyParamAggregator.WriteToCsv(aggregatedParamDatas, storage);
 
-            _ = balloon.Add(Log.INFO, new StackFrame(),
+            _ = balloon.Add(LogEventLevel.Information, new StackFrame(),
                 $"Aggregated {aggregatedParamDatas.Count()} unique parameters from {families.Count} families.");
 
             if (settings.OpenOutputFileOnFinish) FileUtils.OpenInDefaultApp(csvPath);
@@ -81,7 +85,7 @@ public class CmdFFParamAggregator : IExternalCommand {
             balloon.Show();
             return Result.Succeeded;
         } catch (Exception ex) {
-            new Ballogger().Add(Log.ERR, new StackFrame(), ex, true).Show();
+            new Ballogger().Add(LogEventLevel.Error, new StackFrame(), ex, true).Show();
             return Result.Cancelled;
         }
     }

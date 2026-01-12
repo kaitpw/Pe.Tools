@@ -1,5 +1,7 @@
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Interop;
@@ -10,7 +12,7 @@ using Color = System.Windows.Media.Color;
 using Grid = System.Windows.Controls.Grid;
 using TextBlock = Wpf.Ui.Controls.TextBlock;
 
-namespace PeUi.Core;
+namespace Pe.Ui.Core;
 
 /// <summary>
 ///     Wrapper window that handles all ephemeral window lifecycle management:

@@ -1,6 +1,6 @@
 using Pe.FamilyFoundry.OperationSettings;
-using PeExtensions.FamDocument;
-using PeExtensions.FamManager;
+using Pe.Extensions.FamDocument;
+using Pe.Extensions.FamManager;
 
 namespace Pe.FamilyFoundry.Operations;
 

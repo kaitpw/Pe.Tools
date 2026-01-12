@@ -8,6 +8,7 @@
 
     <ItemGroup>
         <!-- Revit Platform -->
+        <PackageReference Include="F23.StringSimilarity" Version="7.0.1" />
         <PackageReference Include="Nice3point.Revit.Toolkit" Version="$(RevitVersion).*"/>
         <PackageReference Include="Nice3point.Revit.Extensions" Version="$(RevitVersion).*"/>
         <PackageReference Include="Nice3point.Revit.Api.RevitAPI" Version="$(RevitVersion).*"/>
@@ -15,10 +16,16 @@
 
         <!-- MVVM -->
         <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0"/>
+        <PackageReference Include="WPF-UI" Version="4.2.0" />
     </ItemGroup>
 
     <ItemGroup>
         <Folder Include="Models"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Pe.Global\Pe.Global.csproj" />
+      <ProjectReference Include="..\Pe.Library\Pe.Library.csproj" />
     </ItemGroup>
 
 </Project>

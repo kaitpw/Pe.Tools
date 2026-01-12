@@ -1,8 +1,8 @@
 using F23.StringSimilarity;
-using PeServices.Storage;
-using PeServices.Storage.Core;
+using Pe.Global.Services.Storage;
+using Pe.Global.Services.Storage.Core.Json;
 
-namespace PeUi.Core.Services;
+namespace Pe.Ui.Core.Services;
 
 /// <summary>
 ///     Standard implementation of search/filter service with fuzzy matching and persistence

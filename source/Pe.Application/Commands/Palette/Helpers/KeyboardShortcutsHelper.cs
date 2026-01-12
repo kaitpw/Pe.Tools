@@ -1,9 +1,13 @@
-using PeRevit.Ui;
-using PeRevit.Utils;
-using PeUtils.Files;
+
+using Pe.Global.Services.Storage;
+using Pe.Library.Revit.Ui;
+using Serilog.Events;
+using System.Diagnostics;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Xml.Linq;
+using Pe.Library.Revit.Utils;
+using System.IO;
 
 namespace AddinPaletteSuite.Helpers;
 
@@ -49,7 +53,7 @@ public class KeyboardShortcutsHelper {
         var revitVersion = Utils.GetRevitVersion();
         if (revitVersion == null) {
             new Ballogger()
-                .Add(Log.WARN, null, "Revit version not found")
+                .Add(LogEventLevel.Warning, null, "Revit version not found")
                 .Show();
             return string.Empty;
         }
@@ -87,7 +91,7 @@ public class KeyboardShortcutsHelper {
         var shortcuts = new Dictionary<string, ShortcutInfo>(StringComparer.OrdinalIgnoreCase);
         var (filePath, pathErr) = this.GetShortcutsFilePath();
         new Ballogger()
-            .Add(Log.INFO, null, $"Loading Keyboard shortcuts file\n {filePath}")
+            .Add(LogEventLevel.Information, null, $"Loading Keyboard shortcuts file\n {filePath}")
             .Show(() => Clipboard.SetText(filePath), "Click to copy path");
         if (pathErr is not null) return shortcuts; // Return empty dictionary if file doesn't exist
 

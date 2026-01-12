@@ -1,11 +1,11 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using PeUi.Core;
-using PeUi.Core.Services;
+using Pe.Ui.Core;
+using Pe.Ui.Core.Services;
 using System.Collections.ObjectModel;
 using System.Windows.Threading;
 
-namespace PeUi.ViewModels;
+namespace Pe.Ui.ViewModels;
 
 /// <summary>
 ///     Non-generic interface for type-erased access in Palette component

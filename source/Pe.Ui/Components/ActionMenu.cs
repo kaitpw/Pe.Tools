@@ -1,6 +1,6 @@
 #nullable enable
 
-using PeUi.Core;
+using Pe.Ui.Core;
 using System.Collections;
 using System.Windows;
 using System.Windows.Controls;
@@ -10,7 +10,7 @@ using System.Windows.Threading;
 using ContextMenu = System.Windows.Controls.ContextMenu;
 using MenuItem = Wpf.Ui.Controls.MenuItem;
 
-namespace PeUi.Components;
+namespace Pe.Ui.Components;
 
 /// <summary>
 ///     Non-generic base class for ActionMenu

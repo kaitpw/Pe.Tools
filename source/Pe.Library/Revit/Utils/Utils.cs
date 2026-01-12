@@ -2,7 +2,7 @@
 
 namespace Pe.Library.Revit.Utils;
 
-internal class Utils {
+public class Utils {
     // Helper method to get current Revit version
     public static string GetRevitVersion() {
 #if REVIT2023

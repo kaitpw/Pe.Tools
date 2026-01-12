@@ -1,8 +1,9 @@
 using Pe.FamilyFoundry.OperationSettings;
-using PeExtensions.FamDocument;
-using PeExtensions.FamParameter;
-using PeExtensions.FamParameter.Formula;
-using BCS = PeExtensions.FamDocument.SetValue.BuiltInCoercionStrategy;
+using Pe.Global;
+using Pe.Extensions.FamDocument;
+using Pe.Extensions.FamParameter;
+using Pe.Extensions.FamParameter.Formula;
+using BCS = Pe.Extensions.FamDocument.SetValue.BuiltInCoercionStrategy;
 
 namespace Pe.FamilyFoundry.Operations;
 

@@ -1,13 +1,19 @@
-using Pe.Application.Commands.FamilyFoundry.Core;
-using Pe.Application.Commands.FamilyFoundry.Core.OperationGroups;
-using Pe.Application.Commands.FamilyFoundry.Core.Operations;
-using Pe.Application.Commands.FamilyFoundry.Core.OperationSettings;
-using Pe.Application.Commands.FamilyFoundry.Core.Snapshots;
-using PeRevit.Lib;
-using PeRevit.Ui;
-using PeUtils.Files;
+using Autodesk.Revit.Attributes;
+using Autodesk.Revit.UI;
+using Pe.Application.Commands.FamilyFoundry.FamilyFoundryUi;
+using Pe.FamilyFoundry;
+using Pe.FamilyFoundry.OperationGroups;
+using Pe.FamilyFoundry.Operations;
+using Pe.FamilyFoundry.OperationSettings;
+using Pe.FamilyFoundry.Snapshots;
+using Pe.Global;
+using Pe.Library.Revit.Lib;
+using Pe.Library.Revit.Ui;
+using Pe.Library.Utils.Files;
+using Serilog.Events;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
 
 namespace Pe.Application.Commands.FamilyFoundry;
 // support add, delete, remap, sort, rename
@@ -32,7 +38,7 @@ public class CmdFFManager : IExternalCommand {
             window.Show();
             return Result.Succeeded;
         } catch (Exception ex) {
-            new Ballogger().Add(Log.ERR, new StackFrame(), ex, true).Show();
+            new Ballogger().Add(LogEventLevel.Error, new StackFrame(), ex, true).Show();
             return Result.Cancelled;
         }
     }
@@ -41,7 +47,7 @@ public class CmdFFManager : IExternalCommand {
         if (ctx.SelectedProfile == null) return;
         if (!ctx.PreviewData.IsValid) {
             new Ballogger()
-                .Add(Log.ERR, new StackFrame(), "Cannot apply profile - profile has validation errors")
+                .Add(LogEventLevel.Error, new StackFrame(), "Cannot apply profile - profile has validation errors")
                 .Show();
             return;
         }
@@ -64,7 +70,8 @@ public class CmdFFManager : IExternalCommand {
 
         // Force this to never be single transaction
         var executionOptions = new ExecutionOptions {
-            SingleTransaction = false, OptimizeTypeOperations = profile.ExecutionOptions.OptimizeTypeOperations
+            SingleTransaction = false,
+            OptimizeTypeOperations = profile.ExecutionOptions.OptimizeTypeOperations
         };
 
         // Request both parameter and refplane snapshots
@@ -84,7 +91,7 @@ public class CmdFFManager : IExternalCommand {
 
         var balloon = new Ballogger();
         foreach (var logCtx in logs.contexts)
-            _ = balloon.Add(Log.INFO, new StackFrame(), $"Processed {logCtx.FamilyName} in {logCtx.TotalMs}ms");
+            _ = balloon.Add(LogEventLevel.Information, new StackFrame(), $"Processed {logCtx.FamilyName} in {logCtx.TotalMs}ms");
         balloon.Show();
 
         // No post-processing for Manager - it's for family documents only

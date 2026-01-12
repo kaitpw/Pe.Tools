@@ -1,4 +1,4 @@
-namespace PeUi.Core;
+namespace Pe.Ui.Core;
 
 /// <summary>
 ///     Static accessor for the RevitTask service, allowing shared projects

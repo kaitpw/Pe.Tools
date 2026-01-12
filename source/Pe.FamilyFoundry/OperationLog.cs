@@ -1,3 +1,5 @@
+using System.Diagnostics;
+
 namespace Pe.FamilyFoundry;
 
 public enum LogStatus { Pending, Success, Skipped, Error }

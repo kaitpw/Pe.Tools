@@ -1,6 +1,21 @@
+using Autodesk.Revit.Attributes;
+using Autodesk.Revit.UI;
 using Pe.Application.Commands.FamilyFoundry.ScheduleManagerUi;
+using Pe.FamilyFoundry;
+using Pe.Global.Services.Storage;
+using Pe.Global.Services.Storage.Core;
+using Pe.Global.Services.Storage.Core.Json.SchemaProviders;
+using Pe.Library.Revit.Lib;
+using Pe.Library.Revit.Ui;
+using Pe.Library.Utils.Files;
+using Pe.Ui.Components;
+using Pe.Ui.Core;
+using Pe.Ui.Core.Services;
+using Serilog.Events;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
+using System.IO;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Windows;
@@ -28,23 +43,6 @@ public class CmdCreateSchedule : IExternalCommand {
             if (profiles.Count == 0) {
                 throw new InvalidOperationException(
                     $"No schedule profiles found in {schedulesSubDir.DirectoryPath}. Create a profile JSON file to continue.");
-            }
-
-            // Update the schedulable parameters cache for LSP autocomplete
-            // Extract unique categories from all profiles
-            try {
-                var categories = profiles
-                    .Select(p => p.CategoryName)
-                    .Where(c => !string.IsNullOrEmpty(c))
-                    .Distinct(StringComparer.OrdinalIgnoreCase)
-                    .ToList();
-
-                Debug.WriteLine(
-                    $"[CmdCreateSchedule] Updating parameter cache for {categories.Count} categories: {string.Join(", ", categories)}");
-                SchedulableParameterNamesProvider.UpdateCache(doc, categories);
-            } catch (Exception ex) {
-                Debug.WriteLine($"[CmdCreateSchedule] Failed to update parameter cache: {ex.Message}");
-                // Non-critical - continue even if cache update fails
             }
 
             // State for tracking current selection
@@ -105,7 +103,7 @@ public class CmdCreateSchedule : IExternalCommand {
 
             return Result.Succeeded;
         } catch (Exception ex) {
-            new Ballogger().Add(Log.ERR, new StackFrame(), ex, true).Show();
+            new Ballogger().Add(LogEventLevel.Error, new StackFrame(), ex, true).Show();
             return Result.Cancelled;
         }
     }
@@ -197,7 +195,7 @@ public class CmdCreateSchedule : IExternalCommand {
         if (ctx.SelectedProfile == null) return;
         if (!ctx.PreviewData.IsValid) {
             new Ballogger()
-                .Add(Log.ERR, new StackFrame(), "Cannot create schedule - profile has validation errors")
+                .Add(LogEventLevel.Error, new StackFrame(), "Cannot create schedule - profile has validation errors")
                 .Show();
             return;
         }
@@ -219,57 +217,57 @@ public class CmdCreateSchedule : IExternalCommand {
 
         // Build comprehensive balloon message
         var balloon = new Ballogger();
-        _ = balloon.Add(Log.INFO, new StackFrame(),
+        _ = balloon.Add(LogEventLevel.Information, new StackFrame(),
             $"Created schedule '{result.ScheduleName}' from profile '{ctx.SelectedProfile.TextPrimary}'");
 
         // Report applied fields
         if (result.AppliedFields.Count > 0) {
-            _ = balloon.Add(Log.INFO, new StackFrame(),
+            _ = balloon.Add(LogEventLevel.Information, new StackFrame(),
                 $"Applied {result.AppliedFields.Count} field(s)");
         }
 
         // Report skipped fields with reasons
         if (result.SkippedFields.Count > 0) {
-            _ = balloon.Add(Log.WARN, new StackFrame(),
+            _ = balloon.Add(LogEventLevel.Warning, new StackFrame(),
                 $"{result.SkippedFields.Count} field(s) skipped:");
             foreach (var skipped in result.SkippedFields)
-                _ = balloon.Add(Log.WARN, new StackFrame(), $"  • {skipped}");
+                _ = balloon.Add(LogEventLevel.Warning, new StackFrame(), $"  • {skipped}");
         }
 
         // Report calculated fields
         if (result.SkippedCalculatedFields.Count > 0) {
-            _ = balloon.Add(Log.WARN, new StackFrame(),
+            _ = balloon.Add(LogEventLevel.Warning, new StackFrame(),
                 $"{result.SkippedCalculatedFields.Count} calculated field(s) require manual creation - see output file");
         }
 
         // Report sort/group issues
         if (result.SkippedSortGroups.Count > 0) {
-            _ = balloon.Add(Log.WARN, new StackFrame(),
+            _ = balloon.Add(LogEventLevel.Warning, new StackFrame(),
                 $"{result.SkippedSortGroups.Count} sort/group(s) skipped:");
             foreach (var skipped in result.SkippedSortGroups)
-                _ = balloon.Add(Log.WARN, new StackFrame(), $"  • {skipped}");
+                _ = balloon.Add(LogEventLevel.Warning, new StackFrame(), $"  • {skipped}");
         }
 
         // Report filter issues
         if (result.SkippedFilters.Count > 0) {
-            _ = balloon.Add(Log.WARN, new StackFrame(),
+            _ = balloon.Add(LogEventLevel.Warning, new StackFrame(),
                 $"{result.SkippedFilters.Count} filter(s) skipped:");
             foreach (var skipped in result.SkippedFilters)
-                _ = balloon.Add(Log.WARN, new StackFrame(), $"  • {skipped}");
+                _ = balloon.Add(LogEventLevel.Warning, new StackFrame(), $"  • {skipped}");
         }
 
         // Report header group issues
         if (result.SkippedHeaderGroups.Count > 0) {
-            _ = balloon.Add(Log.WARN, new StackFrame(),
+            _ = balloon.Add(LogEventLevel.Warning, new StackFrame(),
                 $"{result.SkippedHeaderGroups.Count} header group(s) skipped:");
             foreach (var skipped in result.SkippedHeaderGroups)
-                _ = balloon.Add(Log.WARN, new StackFrame(), $"  • {skipped}");
+                _ = balloon.Add(LogEventLevel.Warning, new StackFrame(), $"  • {skipped}");
         }
 
         // Report general warnings
         if (result.Warnings.Count > 0) {
             foreach (var warning in result.Warnings)
-                _ = balloon.Add(Log.WARN, new StackFrame(), warning);
+                _ = balloon.Add(LogEventLevel.Warning, new StackFrame(), warning);
         }
 
         balloon.Show();
@@ -299,7 +297,7 @@ public class CmdCreateSchedule : IExternalCommand {
 
         if (category == null) {
             new Ballogger()
-                .Add(Log.WARN, new StackFrame(), $"Category '{profile.CategoryName}' not found")
+                .Add(LogEventLevel.Warning, new StackFrame(), $"Category '{profile.CategoryName}' not found")
                 .Show();
             return;
         }
@@ -312,7 +310,7 @@ public class CmdCreateSchedule : IExternalCommand {
 
         if (allFamilies.Count == 0) {
             new Ballogger()
-                .Add(Log.WARN, new StackFrame(), $"No {profile.CategoryName} families found in the project")
+                .Add(LogEventLevel.Warning, new StackFrame(), $"No {profile.CategoryName} families found in the project")
                 .Show();
             return;
         }
@@ -325,7 +323,7 @@ public class CmdCreateSchedule : IExternalCommand {
 
         if (matchingFamilyNames.Count == 0) {
             new Ballogger()
-                .Add(Log.WARN, new StackFrame(), "No families match the schedule filters")
+                .Add(LogEventLevel.Warning, new StackFrame(), "No families match the schedule filters")
                 .Show();
             return;
         }
@@ -342,7 +340,7 @@ public class CmdCreateSchedule : IExternalCommand {
         var filePath = context.SelectedProfile.FilePath;
         if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath)) {
             new Ballogger()
-                .Add(Log.WARN, new StackFrame(), $"Profile file not found: {filePath}")
+                .Add(LogEventLevel.Warning, new StackFrame(), $"Profile file not found: {filePath}")
                 .Show();
             return;
         }

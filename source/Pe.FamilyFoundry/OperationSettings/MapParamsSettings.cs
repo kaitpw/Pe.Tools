@@ -1,8 +1,8 @@
 using Pe.FamilyFoundry.Aggregators.Snapshots;
-using PeExtensions.FamDocument.SetValue;
-using PeExtensions.FamManager;
-using PeServices.Storage.Core.Json.SchemaProcessors;
-using PeServices.Storage.Core.Json.SchemaProviders;
+using Pe.Extensions.FamDocument.SetValue;
+using Pe.Extensions.FamManager;
+using Pe.Global.Services.Storage.Core.Json.SchemaProcessors;
+using Pe.Global.Services.Storage.Core.Json.SchemaProviders;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
@@ -113,6 +113,6 @@ public class MappingData {
 
     [Description(
         "Coercion strategy to use for the remapping. CoerceByStorageType will be used when none is specified.")]
-    [SchemaExamples(typeof(ParamCoercionStrategyProvider))]
+    // [SchemaExamples(typeof(ParamCoercionStrategyProvider))]
     public string MappingStrategy { get; init; } = nameof(BuiltInCoercionStrategy.CoerceByStorageType);
 }

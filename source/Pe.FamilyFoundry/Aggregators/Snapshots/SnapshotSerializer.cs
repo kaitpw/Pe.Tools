@@ -1,8 +1,8 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Pe.FamilyFoundry.Snapshots;
-using PeServices.Storage.Core.Json.ContractResolvers;
-using PeServices.Storage.Core.Json.SchemaProviders;
+using Pe.Global.Services.Storage.Core.Json.ContractResolvers;
+using Pe.Global.Services.Storage.Core.Json.SchemaProviders;
 
 namespace Pe.FamilyFoundry.Aggregators.Snapshots;
 

@@ -1,6 +1,6 @@
 using System.Windows.Input;
 
-namespace PeUi.Core;
+namespace Pe.Ui.Core;
 
 /// <summary>
 ///     Navigation actions that can be triggered by keyboard in palettes

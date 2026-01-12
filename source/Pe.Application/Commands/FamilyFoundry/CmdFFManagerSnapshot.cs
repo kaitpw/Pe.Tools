@@ -1,9 +1,13 @@
-using Pe.Application.Commands.FamilyFoundry.Core;
-using Pe.Application.Commands.FamilyFoundry.Core.Operations;
-using Pe.Application.Commands.FamilyFoundry.Core.Snapshots;
-using PeRevit.Lib;
-using PeRevit.Ui;
-using PeServices.Storage;
+using Autodesk.Revit.Attributes;
+using Autodesk.Revit.UI;
+using Pe.FamilyFoundry;
+using Pe.FamilyFoundry.Operations;
+using Pe.FamilyFoundry.Snapshots;
+using Pe.Global.Services.Storage;
+using Pe.Library.Revit.Lib;
+using Pe.Library.Revit.Ui;
+using Serilog.Events;
+using System.Diagnostics;
 
 namespace Pe.Application.Commands.FamilyFoundry;
 // support add, delete, remap, sort, rename
@@ -48,11 +52,11 @@ public class CmdFFManagerSnapshot : IExternalCommand {
 
             var balloon = new Ballogger();
             foreach (var ctx in logs.contexts)
-                _ = balloon.Add(Log.INFO, new StackFrame(), $"Processed {ctx.FamilyName} in {ctx.TotalMs}ms");
+                _ = balloon.Add(LogEventLevel.Information, new StackFrame(), $"Processed {ctx.FamilyName} in {ctx.TotalMs}ms");
             balloon.Show();
             return Result.Succeeded;
         } catch (Exception ex) {
-            new Ballogger().Add(Log.ERR, new StackFrame(), ex, true).Show();
+            new Ballogger().Add(LogEventLevel.Error, new StackFrame(), ex, true).Show();
             return Result.Cancelled;
         }
     }

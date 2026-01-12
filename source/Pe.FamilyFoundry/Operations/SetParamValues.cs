@@ -1,7 +1,7 @@
+using Pe.Extensions.FamDocument;
+using Pe.Extensions.FamDocument.GetValue;
+using Pe.Extensions.FamManager;
 using Pe.FamilyFoundry.OperationSettings;
-using PeExtensions.FamDocument;
-using PeExtensions.FamDocument.GetValue;
-using PeExtensions.FamManager;
 
 namespace Pe.FamilyFoundry.Operations;
 

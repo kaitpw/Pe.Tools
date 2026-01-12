@@ -7,10 +7,15 @@
 
     <ItemGroup>
         <!-- Revit Platform -->
+        <PackageReference Include="Mingmoe.Demystifier" Version="0.9.9" />
         <PackageReference Include="Nice3point.Revit.Toolkit" Version="$(RevitVersion).*"/>
         <PackageReference Include="Nice3point.Revit.Extensions" Version="$(RevitVersion).*"/>
         <PackageReference Include="Nice3point.Revit.Api.RevitAPI" Version="$(RevitVersion).*"/>
         <PackageReference Include="Nice3point.Revit.Api.RevitAPIUI" Version="$(RevitVersion).*"/>
+        <PackageReference Include="NJsonSchema.NewtonsoftJson" Version="11.5.2" />
+    </ItemGroup>
+
+    <ItemGroup>
     </ItemGroup>
 
 </Project>

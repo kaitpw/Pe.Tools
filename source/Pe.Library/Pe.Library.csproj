@@ -11,6 +11,22 @@
         <PackageReference Include="Nice3point.Revit.Extensions" Version="$(RevitVersion).*"/>
         <PackageReference Include="Nice3point.Revit.Api.RevitAPI" Version="$(RevitVersion).*"/>
         <PackageReference Include="Nice3point.Revit.Api.RevitAPIUI" Version="$(RevitVersion).*"/>
+        <PackageReference Include="Serilog" Version="4.3.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Pe.Global\Pe.Global.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Services\Aps\Core\" />
+      <Folder Include="Services\Aps\Models\" />
+      <Folder Include="Services\Document\Core\" />
+      <Folder Include="Services\Storage\Core\Json\ContractResolvers\" />
+      <Folder Include="Services\Storage\Core\Json\Converters\" />
+      <Folder Include="Services\Storage\Core\Json\RevitTypes\" />
+      <Folder Include="Services\Storage\Core\Json\SchemaProcessors\" />
+      <Folder Include="Services\Storage\Core\Json\SchemaProviders\" />
     </ItemGroup>
 
 </Project>

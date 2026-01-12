@@ -1,4 +1,4 @@
-namespace PeUi.Core.Services;
+namespace Pe.Ui.Core.Services;
 
 /// <summary>
 ///     Flags for specifying which fields to search within palette items

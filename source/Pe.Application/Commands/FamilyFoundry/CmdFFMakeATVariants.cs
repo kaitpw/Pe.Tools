@@ -1,7 +1,11 @@
-using Pe.Application.Commands.FamilyFoundry.Core;
-using Pe.Application.Commands.FamilyFoundry.Core.Operations;
-using PeRevit.Ui;
-using PeServices.Storage;
+using Autodesk.Revit.Attributes;
+using Autodesk.Revit.UI;
+using Pe.FamilyFoundry;
+using Pe.FamilyFoundry.Operations;
+using Pe.Global.Services.Storage;
+using Pe.Library.Revit.Ui;
+using Serilog.Events;
+using System.Diagnostics;
 
 namespace Pe.Application.Commands.FamilyFoundry;
 
@@ -36,13 +40,13 @@ public class CmdFFMakeATVariants : IExternalCommand {
             foreach (var ctx in outputs) {
                 var (logs, error) = ctx.OperationLogs;
                 if (error != null) {
-                    _ = balloon.Add(Log.ERR, new StackFrame(),
+                    _ = balloon.Add(LogEventLevel.Error, new StackFrame(),
                         $"Failed to process {ctx.FamilyName}: {error.Message}");
                 } else {
-                    _ = balloon.Add(Log.INFO, new StackFrame(),
+                    _ = balloon.Add(LogEventLevel.Information, new StackFrame(),
                         $"Processed {ctx.FamilyName} with {variants.Count} variants in {ctx.TotalMs:F0}ms");
                     foreach (var log in logs) {
-                        _ = balloon.Add(Log.INFO, new StackFrame(),
+                        _ = balloon.Add(LogEventLevel.Information, new StackFrame(),
                             $"  {log.OperationName}: {log.Entries.Count} entries");
                     }
                 }
@@ -52,7 +56,7 @@ public class CmdFFMakeATVariants : IExternalCommand {
 
             return Result.Succeeded;
         } catch (Exception ex) {
-            new Ballogger().Add(Log.ERR, new StackFrame(), ex, true).Show();
+            new Ballogger().Add(LogEventLevel.Error, new StackFrame(), ex, true).Show();
             return Result.Cancelled;
         }
     }

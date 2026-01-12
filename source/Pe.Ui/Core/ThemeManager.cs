@@ -1,11 +1,12 @@
 #nullable enable
 
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Media;
 using Wpf.Ui.Controls;
 using Wpf.Ui.Markup;
 
-namespace PeUi.Core;
+namespace Pe.Ui.Core;
 
 public enum UiSz {
     none = 0,

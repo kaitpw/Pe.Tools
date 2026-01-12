@@ -1,6 +1,9 @@
-using PeRevit.Ui;
-using PeUi.Core;
-using PeUi.Core.Services;
+using Autodesk.Revit.UI;
+using Pe.Library.Revit.Ui;
+using Pe.Ui.Core;
+using Pe.Ui.Core.Services;
+using Serilog.Events;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Media.Imaging;
 using Color = System.Windows.Media.Color;
@@ -40,7 +43,7 @@ public static class PltFamilyTypes {
                     } catch (OperationCanceledException) {
                         // User canceled placement - this is expected behavior, not an error
                     } catch (Exception ex) {
-                        new Ballogger().Add(Log.ERR, new StackFrame(), ex, true).Show();
+                        new Ballogger().Add(LogEventLevel.Error, new StackFrame(), ex, true).Show();
                     }
                 },
                 CanExecute = item => {

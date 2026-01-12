@@ -1,5 +1,5 @@
 using Pe.FamilyFoundry.Aggregators.Snapshots;
-using PeServices.Storage.Core.Json.SchemaProviders;
+using Pe.Global.Services.Storage.Core.Json.SchemaProviders;
 
 namespace Pe.FamilyFoundry.Aggregators;
 

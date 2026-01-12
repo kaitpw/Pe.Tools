@@ -1,7 +1,10 @@
-﻿using Autodesk.Revit.DB.Plumbing;
+﻿using Autodesk.Revit.Attributes;
+using Autodesk.Revit.DB.Plumbing;
+using Autodesk.Revit.UI;
 using Nice3point.Revit.Extensions;
-using PeRevit.Lib;
-using PeRevit.Ui;
+using Pe.Library.Revit.Ui;
+using Serilog.Events;
+using System.Text;
 
 namespace Pe.Application.Commands;
 
@@ -21,12 +24,12 @@ public class CmdMep2040 : IExternalCommand {
         var refrigerantVolume = TotalPipeVolume(doc, "RL - Refrigerant Liquid");
         var equipmentCounts = CountMepEquipmentByType(doc);
 
-        _ = balloon.Add(Log.INFO, null, $"Total Pipe Length: {metalPipeLength:F2} ft");
-        _ = balloon.Add(Log.INFO, null, $"Total RL Volume: {refrigerantVolume:F2} ft³");
+        _ = balloon.Add(LogEventLevel.Information, null, $"Total Pipe Length: {metalPipeLength:F2} ft");
+        _ = balloon.Add(LogEventLevel.Information, null, $"Total RL Volume: {refrigerantVolume:F2} ft³");
         var sb = new StringBuilder();
         foreach (var kvp in equipmentCounts)
             _ = sb.AppendLine($"  {kvp.Key}: {kvp.Value}");
-        _ = balloon.Add(Log.INFO, null, "MEP Equipment Counts:\n" + sb);
+        _ = balloon.Add(LogEventLevel.Information, null, "MEP Equipment Counts:\n" + sb);
 
         balloon.Show("MEP 2040 Sustainability Stats");
 
@@ -37,7 +40,7 @@ public class CmdMep2040 : IExternalCommand {
     ///     Gets the total length of all Pipe elements in the document, optionally filtered by material name.
     /// </summary>
     private static double TotalPipeLength(Document doc, string materialName = null) {
-        var pipes = Filters.AllElementsOfType<Pipe>(doc);
+        var pipes = new FilteredElementCollector(doc).OfClass(typeof(Pipe)).OfType<Pipe>();
         var totalLength = 0.0;
         foreach (var pipe in pipes) {
             // If materialName is specified, filter by materia
@@ -66,8 +69,7 @@ public class CmdMep2040 : IExternalCommand {
     ///     Gets the total volume of all Pipe elements in the document, optionally filtered by system type name.
     /// </summary>
     private static double TotalPipeVolume(Document doc, string pst = "") {
-        var pipes = Filters.AllElementsOfType<Pipe>(doc,
-            pipe =>
+        var pipes = new FilteredElementCollector(doc).OfClass(typeof(Pipe)).OfType<Pipe>().Where(pipe =>
                 pipe.FindParameter(BuiltInParameter.RBS_PIPING_SYSTEM_TYPE_PARAM) // EXTRACT THIS LATER
                     .AsValueString() == pst
         );
