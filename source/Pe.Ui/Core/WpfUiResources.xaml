@@ -1,0 +1,46 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=System.Runtime"
+                    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml">
+
+    <!-- Merge Wpf.Ui base theme and control dictionaries -->
+    <!-- These provide beautiful default styling to ui:MenuItem and other WPF.UI controls -->
+    <ResourceDictionary.MergedDictionaries>
+        <ui:ThemesDictionary Theme="Dark" />
+        <ui:ControlsDictionary />
+        <!-- Typography overrides MUST come after ControlsDictionary to override WPF.UI defaults -->
+        <ResourceDictionary
+            Source="pack://application:,,,/PE_Tools;component/peui/core/TypographyOverrides.xaml" />
+        <ResourceDictionary
+            Source="pack://application:,,,/PE_Tools;component/peui/core/WpfOverrides/TextBox.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <!-- Override WPF.UI's focus visual style to be invisible -->
+    <Style x:Key="DefaultControlFocusVisualStyle">
+        <Setter Property="Control.Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Rectangle
+                        RadiusX="0"
+                        RadiusY="0"
+                        SnapsToDevicePixels="True"
+                        Stroke="Transparent"
+                        StrokeThickness="0" />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="{x:Static SystemParameters.FocusVisualStyleKey}"
+           BasedOn="{StaticResource DefaultControlFocusVisualStyle}" />
+
+    <!-- These come from Variables.xaml in WPF.UI source code. -->
+    <!-- Many variables in the source code are not used in the WPF.UI library, so we are not overriding them. -->
+    <system:Double x:Key="DefaultIconFontSize">16</system:Double>
+    <Thickness x:Key="TextControlThemePadding">8,3,8,4</Thickness>
+    <system:Double x:Key="TextControlThemeMinHeight">24</system:Double>
+
+    <!-- Override the focused border brush to be transparent -->
+    <SolidColorBrush x:Key="TextControlFocusedBorderBrush" Color="Transparent" />
+
+</ResourceDictionary>

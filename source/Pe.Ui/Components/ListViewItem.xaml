@@ -1,0 +1,54 @@
+<Border x:Class="PeUi.Components.ListViewItem"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+        xmlns:local="clr-namespace:PeUi.Components"
+        Background="Transparent">
+    <Grid x:Name="ContentGrid">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+
+        <Border x:Name="ColorIndicator"
+                Grid.Column="0"
+                Width="6"
+                MinHeight="20"
+                CornerRadius="3,0,0,3"
+                Margin="0,4,12,4"
+                Visibility="Collapsed" />
+
+        <Image x:Name="IconImage"
+               Grid.Column="1"
+               VerticalAlignment="Center" />
+
+        <Grid x:Name="TextGrid"
+              Grid.Column="2"
+              VerticalAlignment="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <ui:TextBlock x:Name="PrimaryText"
+                          Grid.Row="0"
+                          Style="{DynamicResource BodyStrongTextBlockStyle}"
+                          TextTrimming="CharacterEllipsis"
+                          Foreground="{ui:ThemeResource TextFillColorPrimaryBrush}" />
+
+            <ui:TextBlock x:Name="SecondaryText"
+                          Grid.Row="1"
+                          Style="{DynamicResource CaptionTextBlockStyle}"
+                          TextTrimming="CharacterEllipsis"
+                          Foreground="{ui:ThemeResource TextFillColorSecondaryBrush}" />
+        </Grid>
+
+        <local:Pill x:Name="PillBorder"
+                    Grid.Column="3"
+                    Background="{ui:ThemeResource ControlAltFillColorTertiaryBrush}"
+                    BorderBrush="{ui:ThemeResource ControlStrokeColorDefaultBrush}"
+                    Opacity="0.7" />
+    </Grid>
+</Border>

@@ -1,0 +1,108 @@
+<core:RevitHostedUserControl x:Class="PeUi.Components.AutoSuggestBox"
+                             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                             xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+                             xmlns:local="clr-namespace:PeUi.Components"
+                             xmlns:core="clr-namespace:PeUi.Core"
+                             x:Name="Root">
+    <UserControl.Resources>
+        <local:StringToVisibilityConverter x:Key="StringToVisibilityConverter" />
+
+        <!-- Custom Item Container Style for AutoSuggestBox -->
+        <Style x:Key="AutoSuggestBoxItemStyle" TargetType="{x:Type ui:ListViewItem}">
+            <Setter Property="Padding" Value="{DynamicResource TextControlThemePadding}" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="{ui:ThemeResource TextFillColorPrimaryBrush}" />
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ui:ListViewItem}">
+                        <Border x:Name="ContentBorder"
+                                Background="{TemplateBinding Background}"
+                                Padding="{TemplateBinding Padding}"
+                                Margin="{TemplateBinding Margin}"
+                                CornerRadius="4">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="ContentBorder" Property="Background"
+                                        Value="{ui:ThemeResource ControlFillColorDefaultBrush}" />
+                            </Trigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsSelected" Value="False" />
+                                    <Condition Property="IsMouseOver" Value="True" />
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="ContentBorder" Property="Background"
+                                        Value="{ui:ThemeResource SubtleFillColorSecondaryBrush}" />
+                            </MultiTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid>
+        <ui:TextBox x:Name="PART_TextBox"
+                    PlaceholderText="{Binding PlaceholderText, ElementName=Root}"
+                    Style="{Binding TextBoxStyle, ElementName=Root}"
+                    ClearButtonEnabled="False"
+                    IconPlacement="Right"
+                    IsTabStop="{Binding IsTabStop, ElementName=Root}"
+                    TabIndex="{Binding TabIndex, ElementName=Root}" />
+
+        <Popup x:Name="PART_SuggestionsPopup"
+               PlacementTarget="{Binding ElementName=PART_TextBox}"
+               IsOpen="{Binding IsSuggestionListOpen, ElementName=Root, Mode=TwoWay}"
+               Placement="Bottom"
+               AllowsTransparency="True"
+               Focusable="False"
+               PopupAnimation="Slide"
+               StaysOpen="True"
+               Width="{Binding ElementName=PART_TextBox, Path=ActualWidth}">
+
+            <Border Background="{DynamicResource FlyoutBackground}"
+                    BorderBrush="{DynamicResource FlyoutBorderBrush}"
+                    BorderThickness="1"
+                    CornerRadius="4"
+                    Padding="2"
+                    SnapsToDevicePixels="True">
+
+                <ui:ListView x:Name="PART_SuggestionsList"
+                             ItemsSource="{Binding FilteredItems, ElementName=Root}"
+                             MaxHeight="{Binding MaxSuggestionListHeight, ElementName=Root}"
+                             ItemContainerStyle="{StaticResource AutoSuggestBoxItemStyle}"
+                             SelectionMode="Single"
+                             Background="Transparent"
+                             BorderThickness="0"
+                             KeyboardNavigation.DirectionalNavigation="Cycle">
+                    <ui:ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel IsItemsHost="True"
+                                                    IsVirtualizing="True"
+                                                    VirtualizationMode="Recycling" />
+                        </ItemsPanelTemplate>
+                    </ui:ListView.ItemsPanel>
+                    <ui:ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Vertical" Margin="0">
+                                <ui:TextBlock Text="{Binding PrimaryText}"
+                                              Style="{DynamicResource BodyTextBlockStyle}"
+                                              TextWrapping="NoWrap"
+                                              TextTrimming="CharacterEllipsis" />
+                                <ui:TextBlock Text="{Binding SecondaryText}"
+                                              Style="{DynamicResource CaptionTextBlockStyle}"
+                                              Visibility="{Binding SecondaryText, Converter={StaticResource StringToVisibilityConverter}}"
+                                              TextWrapping="NoWrap"
+                                              TextTrimming="CharacterEllipsis" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ui:ListView.ItemTemplate>
+                </ui:ListView>
+            </Border>
+        </Popup>
+    </Grid>
+</core:RevitHostedUserControl>
