@@ -6,7 +6,7 @@ The Storage Service provides type-safe, standardized file storage for Revit
 addins. It enforces a consistent folder structure and provides generic wrappers
 for JSON and CSV operations with automatic schema validation.
 
-**Base Path**: `MyDocuments\PE_Tools\{addinName}\`
+**Base Path**: `MyDocuments\Pe.App\{addinName}\`
 
 ## API
 
@@ -75,8 +75,8 @@ Storage.Global().Log("Error message"); // Append to global log
 Based on the CmdFF commands (FF Manager, FF Migrator), the Storage service
 creates the following structure:
 
-```
-MyDocuments\PE_Tools\
+```txt
+MyDocuments\Pe.App\
 ├── Global\
 │   ├── settings.json              # Global APS credentials
 │   ├── settings.schema.json
@@ -175,10 +175,3 @@ var apsClientId = globalSettings.ApsDesktopClientId1;
 var storage = new Storage("FF Manager");
 var outputPath = storage.Output().DirectoryPath;
 ```
-
-
-
-
-
-
-

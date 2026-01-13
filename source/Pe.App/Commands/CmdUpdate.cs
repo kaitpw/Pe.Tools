@@ -15,7 +15,7 @@
 //         var doc = uidoc.Document;
 //
 //         // Fetch the latest Github release
-//         var request = new GithubRequestService("kaitpw", "PE_Tools");
+//         var request = new GithubRequestService("kaitpw", "XXXXXXXXX");
 //         var result = RunRequest(request);
 //
 //         new Ballogger()
