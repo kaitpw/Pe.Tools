@@ -4,7 +4,7 @@
         <Configurations>Debug.R22;Debug.R23;Debug.R24;Debug.R25;Debug.R26</Configurations>
         <Configurations>$(Configurations);Release.R22;Release.R23;Release.R24;Release.R25;Release.R26</Configurations>
 
-         <!-- Default to 2025 for "Debug"/"Release" configs, and also for broader LSP support (e.g. Cursor) -->
+        <!-- Default to 2025 for "Debug"/"Release" configs, and also for broader LSP support (e.g. Cursor) -->
         <!-- NOTE: update as Positive Energy migrated to newer Revit Versions -->
         <RevitVersion>2025</RevitVersion>
         <TargetFramework>net8.0-windows</TargetFramework>
@@ -12,8 +12,8 @@
 
     <ItemGroup>
         <!-- Revit Platform -->
-        <PackageReference Include="Nice3point.Revit.Api.UIFramework" Version="$(RevitVersion).*" />
-        <PackageReference Include="Nice3point.Revit.Api.UIFrameworkServices" Version="$(RevitVersion).*" />
+        <PackageReference Include="Nice3point.Revit.Api.UIFramework" Version="$(RevitVersion).*"/>
+        <PackageReference Include="Nice3point.Revit.Api.UIFrameworkServices" Version="$(RevitVersion).*"/>
         <PackageReference Include="Nice3point.Revit.Toolkit" Version="$(RevitVersion).*"/>
         <PackageReference Include="Nice3point.Revit.Extensions" Version="$(RevitVersion).*"/>
         <PackageReference Include="Nice3point.Revit.Api.RevitAPI" Version="$(RevitVersion).*"/>
@@ -21,11 +21,11 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Pe.Global\Pe.Global.csproj" />
+        <ProjectReference Include="..\Pe.Global\Pe.Global.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="PolyFill\" />
+        <Folder Include="PolyFill\"/>
     </ItemGroup>
 
 </Project>

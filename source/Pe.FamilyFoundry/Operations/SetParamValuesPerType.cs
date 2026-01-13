@@ -3,8 +3,6 @@ using Pe.Extensions.FamDocument.GetValue;
 using Pe.Extensions.FamManager;
 using Pe.Extensions.FamParameter.Formula;
 using Pe.FamilyFoundry.OperationSettings;
-using Serilog;
-using Serilog.Events;
 
 namespace Pe.FamilyFoundry.Operations;
 

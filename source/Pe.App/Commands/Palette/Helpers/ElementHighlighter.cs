@@ -1,5 +1,3 @@
-#nullable enable
-
 using Autodesk.Revit.UI;
 
 namespace Pe.App.Commands.Palette.Helpers;

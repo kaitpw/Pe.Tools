@@ -89,7 +89,8 @@ public static class FamilyPlacementHelper {
                     if (symbol == null) {
                         Debug.WriteLine($"[FamilyPlacement] No symbol found for: {item.Family.Name}");
                         new Ballogger()
-                            .Add(LogEventLevel.Warning, new StackFrame(), $"Family '{item.Family.Name}' has no types to place")
+                            .Add(LogEventLevel.Warning, new StackFrame(),
+                                $"Family '{item.Family.Name}' has no types to place")
                             .Show();
                         return;
                     }

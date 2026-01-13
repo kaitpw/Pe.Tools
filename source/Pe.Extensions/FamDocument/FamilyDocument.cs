@@ -31,7 +31,7 @@ public readonly struct FamilyDocument {
     public static implicit operator Document(FamilyDocument familyDocument) => familyDocument.Document;
 
     // Forward common Document properties for seamless usage
-    public Autodesk.Revit.DB.FamilyManager FamilyManager => this.Document.FamilyManager;
+    public FamilyManager FamilyManager => this.Document.FamilyManager;
     public Family OwnerFamily => this.Document.OwnerFamily;
     public string PathName => this.Document.PathName;
 

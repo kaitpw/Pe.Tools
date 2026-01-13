@@ -1,5 +1,3 @@
-using Nice3point.Revit.Extensions;
-
 namespace Pe.Library.Revit.Mep;
 
 public class MepCurve {

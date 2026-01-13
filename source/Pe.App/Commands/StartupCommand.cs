@@ -8,9 +8,7 @@ namespace Pe.Tools.Commands;
 /// </summary>
 [UsedImplicitly]
 [Transaction(TransactionMode.Manual)]
-public class StartupCommand : ExternalCommand
-{
-    public override void Execute()
-    {
+public class StartupCommand : ExternalCommand {
+    public override void Execute() {
     }
 }

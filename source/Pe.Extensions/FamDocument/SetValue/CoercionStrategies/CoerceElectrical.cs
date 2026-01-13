@@ -1,5 +1,3 @@
-#nullable enable
-using Nice3point.Revit.Extensions;
 using Pe.Extensions.FamDocument.SetValue.Utils;
 
 namespace Pe.Extensions.FamDocument.SetValue.CoercionStrategies;

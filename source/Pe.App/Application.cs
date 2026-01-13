@@ -1,10 +1,9 @@
-﻿using Pe.App.Commands.Palette;
-using Autodesk.Revit.DB.Events;
+﻿using Autodesk.Revit.DB.Events;
 using Autodesk.Revit.UI;
 using Autodesk.Revit.UI.Events;
 using Nice3point.Revit.Toolkit.External;
+using Pe.App.Commands.Palette;
 using Pe.Global.Services.Document;
-using Pe.Library.Revit.Ui;
 using Pe.Tools.Commands;
 using Pe.Tools.Commands.FamilyFoundry;
 using Pe.Ui.Core;
@@ -23,8 +22,8 @@ public class Application : ExternalApplication {
     ///     RevitTaskService for executing code in Revit API context from async/WPF contexts.
     /// </summary>
     private static RevitTaskService _revitTaskService;
-    public override void OnStartup() {
 
+    public override void OnStartup() {
         // Subscribe to ViewActivated event for MRU tracking
         this.Application.ViewActivated += OnViewActivated;
 
@@ -61,9 +60,7 @@ public class Application : ExternalApplication {
         DocumentManager.Instance.OnDocumentClosed(e.Document);
     }
 
-    public override void OnShutdown() {
-        Log.CloseAndFlush();
-    }
+    public override void OnShutdown() => Log.CloseAndFlush();
 
     private void CreateRibbon() {
         const string tabName = "PE TOOLS";
@@ -103,7 +100,6 @@ public class Application : ExternalApplication {
             panelTools.AddPushButton<CmdPltFamilyElements>("Family Palette"),
             panelTools.AddPushButton<CmdTapMaker>("Tap Maker")
         ]);
-
     }
 
     private static void CreateLogger() {

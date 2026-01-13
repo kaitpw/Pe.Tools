@@ -52,7 +52,8 @@ public class CmdFFManagerSnapshot : IExternalCommand {
 
             var balloon = new Ballogger();
             foreach (var ctx in logs.contexts)
-                _ = balloon.Add(LogEventLevel.Information, new StackFrame(), $"Processed {ctx.FamilyName} in {ctx.TotalMs}ms");
+                _ = balloon.Add(LogEventLevel.Information, new StackFrame(),
+                    $"Processed {ctx.FamilyName} in {ctx.TotalMs}ms");
             balloon.Show();
             return Result.Succeeded;
         } catch (Exception ex) {

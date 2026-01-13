@@ -203,7 +203,8 @@ public class ParametersApi {
                 ///     Maps common APS category names to Revit BuiltInCategory values.
                 ///     TODO: fix this, it does not do anything
                 /// </summary>
-                private static ElementId GetRevitCategoryElementId(Autodesk.Revit.DB.Document doc, string categoryName) {
+                private static ElementId
+                    GetRevitCategoryElementId(Autodesk.Revit.DB.Document doc, string categoryName) {
                     try {
                         // If not found in mapping, try to find by name in all categories
                         foreach (BuiltInCategory bic in Enum.GetValues(typeof(BuiltInCategory))) {

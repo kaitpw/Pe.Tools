@@ -10,3 +10,4 @@
 // public class ValueCoercionStrategyProvider : IOptionsProvider {
 //     public IEnumerable<string> GetExamples() => ValueCoercionStrategyRegistry.GetAllNames();
 // }
+

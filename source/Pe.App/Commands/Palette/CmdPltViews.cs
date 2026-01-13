@@ -1,6 +1,5 @@
 using Autodesk.Revit.Attributes;
 using Autodesk.Revit.UI;
-using Nice3point.Revit.Extensions;
 using Pe.Extensions.UiApplication;
 using Pe.Global.Services.Storage;
 using Pe.Library.Revit.Ui;
@@ -42,8 +41,7 @@ public class CmdPltViews : IExternalCommand {
 
             var window = PaletteFactory.Create("View Palette", items, actions,
                 new PaletteOptions<ViewPaletteItem> {
-                    Storage = new Storage(nameof(CmdPltViews)),
-                    PersistenceKey = item => item.View.Id.ToString()
+                    Storage = new Storage(nameof(CmdPltViews)), PersistenceKey = item => item.View.Id.ToString()
                 });
             window.Show();
 

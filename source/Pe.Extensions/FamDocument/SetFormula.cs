@@ -1,4 +1,3 @@
-using Nice3point.Revit.Extensions;
 using Pe.Extensions.FamParameter;
 using Pe.Extensions.FamParameter.Formula;
 using System.Diagnostics;

@@ -165,7 +165,8 @@ public static class FamilyProcessingPipelineExtensions {
             throw new InvalidOperationException("Context must be set before calling Process()");
 
         var sw = Stopwatch.StartNew();
-        _ = pipeline.FamDoc.Process<TContext, OperationLog>((TContext)(object)pipeline.Context, callbacks, out var results);
+        _ = pipeline.FamDoc.Process<TContext, OperationLog>((TContext)(object)pipeline.Context, callbacks,
+            out var results);
         sw.Stop();
 
         pipeline.Context.OperationLogs = results;

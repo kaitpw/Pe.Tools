@@ -70,8 +70,7 @@ public class CmdFFManager : IExternalCommand {
 
         // Force this to never be single transaction
         var executionOptions = new ExecutionOptions {
-            SingleTransaction = false,
-            OptimizeTypeOperations = profile.ExecutionOptions.OptimizeTypeOperations
+            SingleTransaction = false, OptimizeTypeOperations = profile.ExecutionOptions.OptimizeTypeOperations
         };
 
         // Request both parameter and refplane snapshots
@@ -91,7 +90,8 @@ public class CmdFFManager : IExternalCommand {
 
         var balloon = new Ballogger();
         foreach (var logCtx in logs.contexts)
-            _ = balloon.Add(LogEventLevel.Information, new StackFrame(), $"Processed {logCtx.FamilyName} in {logCtx.TotalMs}ms");
+            _ = balloon.Add(LogEventLevel.Information, new StackFrame(),
+                $"Processed {logCtx.FamilyName} in {logCtx.TotalMs}ms");
         balloon.Show();
 
         // No post-processing for Manager - it's for family documents only

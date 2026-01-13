@@ -1,6 +1,5 @@
 using NJsonSchema;
 using NJsonSchema.Validation;
-using System.Windows.Controls;
 using ValidationError = NJsonSchema.Validation.ValidationError;
 
 namespace Pe.Global;

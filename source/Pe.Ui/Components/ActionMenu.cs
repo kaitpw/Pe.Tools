@@ -1,5 +1,3 @@
-#nullable enable
-
 using Pe.Ui.Core;
 using System.Collections;
 using System.Windows;

@@ -1,14 +1,14 @@
-using Pe.App.Commands.Palette;
 using Autodesk.Revit.UI;
+using Pe.App.Commands.Palette;
 using Pe.Tools.Commands;
 using Pe.Tools.Commands.FamilyFoundry;
 using System.Diagnostics;
 
 namespace Pe.Tools;
 
-
 public static class ButtonDataHydrator {
-    private static readonly Dictionary<string, ButtonDataRecord> ButtonDataRecords = new() { {
+    private static readonly Dictionary<string, ButtonDataRecord> ButtonDataRecords = new() {
+        {
             nameof(CmdCacheParametersService),
             new ButtonDataRecord {
                 SmallImage = "Red_16.png",
@@ -199,6 +199,7 @@ public static class ButtonDataHydrator {
         public string ContextualHelp { get; init; }
 
         private static string ValidateUri(string fileName) =>
-            new Uri($"pack://application:,,,/Pe.App;component/resources/{fileName.ToLowerInvariant()}", UriKind.Absolute).ToString();
+            new Uri($"pack://application:,,,/Pe.App;component/resources/{fileName.ToLowerInvariant()}",
+                UriKind.Absolute).ToString();
     }
 }

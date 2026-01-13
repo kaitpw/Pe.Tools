@@ -4,7 +4,6 @@ using Pe.Library.Revit.Mep.Mechanical;
 namespace Pe.Library.Revit.Lib;
 
 public class Filters {
-
     /// <summary>
     ///     Retrieves the first element of a specified type from the Revit document.
     ///     This method generalizes the pattern of collecting elements by class and casting them.

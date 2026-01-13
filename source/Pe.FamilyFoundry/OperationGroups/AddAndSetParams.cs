@@ -1,4 +1,3 @@
-using Nice3point.Revit.Extensions;
 using Pe.FamilyFoundry.Aggregators.Snapshots;
 using Pe.FamilyFoundry.Operations;
 using Pe.FamilyFoundry.OperationSettings;

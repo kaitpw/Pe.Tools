@@ -1,4 +1,3 @@
-
 using Autodesk.Revit.Attributes;
 using Autodesk.Revit.UI;
 using Pe.FamilyFoundry;
@@ -60,7 +59,8 @@ public class CmdFFMigrator : IExternalCommand {
             "FF Migrator");
 
         new Ballogger()
-            .Add(LogEventLevel.Information, new StackFrame(), $"Schema regenerated for {context.SelectedProfile.TextPrimary}")
+            .Add(LogEventLevel.Information, new StackFrame(),
+                $"Schema regenerated for {context.SelectedProfile.TextPrimary}")
             .Show();
     }
 
@@ -132,7 +132,8 @@ public class CmdFFMigrator : IExternalCommand {
 
         var balloon = new Ballogger();
         foreach (var logCtx in logs.contexts)
-            _ = balloon.Add(LogEventLevel.Information, new StackFrame(), $"Processed {logCtx.FamilyName} in {logCtx.TotalMs}ms");
+            _ = balloon.Add(LogEventLevel.Information, new StackFrame(),
+                $"Processed {logCtx.FamilyName} in {logCtx.TotalMs}ms");
         balloon.Show();
 
         // Prompt user to place families in a view for testing

@@ -1,4 +1,3 @@
-#nullable enable
 using Pe.Extensions.FamDocument.SetValue.Utils;
 
 namespace Pe.Extensions.FamDocument.SetValue.CoercionStrategies;

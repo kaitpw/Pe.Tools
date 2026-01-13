@@ -7,7 +7,6 @@ using Pe.Global.Services.Storage.Core.Json.SchemaProcessors;
 using Pe.Global.Services.Storage.Core.Json.SchemaProviders;
 using Pe.Library.Revit.Lib;
 using Pe.Library.Revit.Ui;
-using Pe.Library.Utils.Files;
 using Serilog.Events;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -67,7 +66,8 @@ public class CmdFFParamAggregator : IExternalCommand {
             var filterInfo = settings.CategoryFilter.Any()
                 ? $" (filtered to {string.Join(", ", settings.CategoryFilter.Select(c => c.Name))})"
                 : " (all categories)";
-            _ = balloon.Add(LogEventLevel.Information, new StackFrame(), $"Analyzing {families.Count} families{filterInfo}...");
+            _ = balloon.Add(LogEventLevel.Information, new StackFrame(),
+                $"Analyzing {families.Count} families{filterInfo}...");
 
             var aggregatedData = FamilyParamAggregator.Aggregate(doc, collectorQueue, families);
             var aggregatedParamDatas = aggregatedData as AggregatedParamData[] ?? aggregatedData.ToArray();

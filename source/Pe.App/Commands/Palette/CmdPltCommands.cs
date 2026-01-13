@@ -1,8 +1,7 @@
-using Pe.App.Commands.Palette.Helpers;
 using Autodesk.Revit.Attributes;
 using Autodesk.Revit.UI;
+using Pe.App.Commands.Palette.Helpers;
 using Pe.Global.Services.Storage;
-using Pe.Ui.Components;
 using Pe.Ui.Core;
 using Pe.Ui.Core.Services;
 using Pe.Ui.ViewModels;
@@ -97,14 +96,14 @@ public static class CommandPaletteService {
                 Name = "Execute",
                 Execute = async item => {
                     if (item is PostableCommandItem cmdItem) {
-                        var (success, error) = Pe.Library.Revit.Lib.Commands.Execute(uiApp, cmdItem.Command);
+                        var (success, error) = Library.Revit.Lib.Commands.Execute(uiApp, cmdItem.Command);
                         if (error is not null) Debug.WriteLine("Error: " + error.Message + error.StackTrace);
                         if (success) commandHelper.UpdateCommandUsage(cmdItem.Command);
                     }
                 },
                 CanExecute = item => {
                     if (item is PostableCommandItem cmdItem)
-                        return Pe.Library.Revit.Lib.Commands.IsAvailable(uiApp, cmdItem.Command);
+                        return Library.Revit.Lib.Commands.IsAvailable(uiApp, cmdItem.Command);
                     return false;
                 }
             }

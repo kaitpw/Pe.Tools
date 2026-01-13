@@ -1,4 +1,5 @@
 using Pe.Global.PolyFill;
+
 namespace Pe.Global.Services.Document.Core;
 
 /// <summary>

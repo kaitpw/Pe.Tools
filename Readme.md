@@ -5,22 +5,24 @@ Autodesk Revit plugin project organized into multiple solution files that target
 ## Table of content
 
 <!-- TOC -->
+
 * [Prerequisites](#prerequisites)
 * [Solution Structure](#solution-structure)
 * [Project Structure](#project-structure)
 * [Building](#building)
-  * [Building the MSI installer and the Autodesk bundle on local machine](#building-the-msi-installer-and-the-autodesk-bundle-on-local-machine)
+    * [Building the MSI installer and the Autodesk bundle on local machine](#building-the-msi-installer-and-the-autodesk-bundle-on-local-machine)
 * [Publishing Releases](#publishing-releases)
-  * [Creating a new Release from the JetBrains Rider](#creating-a-new-release-from-the-jetbrains-rider)
-  * [Creating a new Release from the Terminal](#creating-a-new-release-from-the-terminal)
-  * [Creating a new Release on GitHub](#creating-a-new-release-on-github)
+    * [Creating a new Release from the JetBrains Rider](#creating-a-new-release-from-the-jetbrains-rider)
+    * [Creating a new Release from the Terminal](#creating-a-new-release-from-the-terminal)
+    * [Creating a new Release on GitHub](#creating-a-new-release-on-github)
 * [Compiling a solution on GitHub](#compiling-a-solution-on-github)
 * [Conditional compilation for a specific Revit version](#conditional-compilation-for-a-specific-revit-version)
 * [Managing Supported Revit Versions](#managing-supported-revit-versions)
-  * [Solution configurations](#solution-configurations)
-  * [Project configurations](#project-configurations)
+    * [Solution configurations](#solution-configurations)
+    * [Project configurations](#project-configurations)
 * [API references](#api-references)
 * [Learn More](#learn-more)
+
 <!-- TOC -->
 
 ## Prerequisites
@@ -54,30 +56,37 @@ If you haven't already installed these, you can do so by visiting the following:
 
 ## Building
 
-We recommend JetBrains Rider as preferred IDE, since it has outstanding .NET support. If you don't have Rider installed, you can download it
+We recommend JetBrains Rider as preferred IDE, since it has outstanding .NET support. If you don't have Rider installed,
+you can download it
 from [here](https://www.jetbrains.com/rider/).
 
 1. Open JetBrains Rider
-2. In the `Solutions Configuration` drop-down menu, select `Release.R25` or `Debug.R25`. Suffix `R25` means compiling for the Revit 2025.
+2. In the `Solutions Configuration` drop-down menu, select `Release.R25` or `Debug.R25`. Suffix `R25` means compiling
+   for the Revit 2025.
 3. After the solution loads, you can build it by clicking on `Build -> Build Solution`.
 4. `Debug` button will start Revit add-in in the debug mode.
 
    ![image](https://github.com/user-attachments/assets/d209d863-a6d5-43a9-83e1-5eeb2b9fddac)
 
-Also, you can use Visual Studio. If you don't have Visual Studio installed, download it from [here](https://visualstudio.microsoft.com/downloads/).
+Also, you can use Visual Studio. If you don't have Visual Studio installed, download it
+from [here](https://visualstudio.microsoft.com/downloads/).
 
 1. Open Visual Studio
-2. In the `Solutions Configuration` drop-down menu, select `Release.R25` or `Debug.R25`. Suffix `R25` means compiling for the Revit 2025.
+2. In the `Solutions Configuration` drop-down menu, select `Release.R25` or `Debug.R25`. Suffix `R25` means compiling
+   for the Revit 2025.
 3. After the solution loads, you can build it by clicking on `Build -> Build Solution`.
 
 ### Building the MSI installer and the Autodesk bundle on local machine
 
-To build the project for all versions, create the installer and bundle, this project uses [ModularPipelines](https://github.com/thomhurst/ModularPipelines)
+To build the project for all versions, create the installer and bundle, this project
+uses [ModularPipelines](https://github.com/thomhurst/ModularPipelines)
 
 To execute your ModularPipelines build locally, you can follow these steps:
 
-1. **Navigate to your project directory**. Open a terminal / command prompt and navigate to your project's root directory.
-2. **Run the build**. Once you have navigated to your project's root directory, you can run the ModularPipelines build by calling:
+1. **Navigate to your project directory**. Open a terminal / command prompt and navigate to your project's root
+   directory.
+2. **Run the build**. Once you have navigated to your project's root directory, you can run the ModularPipelines build
+   by calling:
 
    Compile:
    ```shell
@@ -94,12 +103,16 @@ To execute your ModularPipelines build locally, you can follow these steps:
 ## Publishing Releases
 
 Releases are managed by creating new [Git tags](https://git-scm.com/book/en/v2/Git-Basics-Tagging).
-A tag in Git used to capture a snapshot of the project at a particular point in time, with the ability to roll back to a previous version.
+A tag in Git used to capture a snapshot of the project at a particular point in time, with the ability to roll back to a
+previous version.
 
-The build system uses [GitVersion.Tool](https://gitversion.net/docs/) to automatically determine the Release version based on the Git history and tags. 
-If a tag is present on the current commit, the version will match the tag. If no tag is specified, the tool automatically generates a release version based on the branch name and commit history.
+The build system uses [GitVersion.Tool](https://gitversion.net/docs/) to automatically determine the Release version
+based on the Git history and tags.
+If a tag is present on the current commit, the version will match the tag. If no tag is specified, the tool
+automatically generates a release version based on the branch name and commit history.
 
-You can also specify a fixed version by setting the `Version` property in the `build/appsettings.json` file. This will override the version determined by GitVersion.Tool.
+You can also specify a fixed version by setting the `Version` property in the `build/appsettings.json` file. This will
+override the version determined by GitVersion.Tool.
 
 Tags can follow the format `version` or `version-stage.n.date` for pre-releases, where:
 
@@ -127,15 +140,17 @@ For example:
 
 ### Updating the Changelog
 
-Updating the changelog is optional. If you provide a changelog, the build system will use it for the release notes. 
-If no entry is found for the current version, GitHub will automatically generate release notes based on your pull requests and commits.
+Updating the changelog is optional. If you provide a changelog, the build system will use it for the release notes.
+If no entry is found for the current version, GitHub will automatically generate release notes based on your pull
+requests and commits.
 
 To update the changelog manually:
 
 1. Navigate to the solution root.
 2. Open the file **Changelog.md**.
 3. Add a section for your version. The version separator is the `#` symbol.
-4. Specify the release number e.g. `# 1.0.0` or `# 25.01.01 v1.0.0`, the format does not matter, the main thing is that it contains the version.
+4. Specify the release number e.g. `# 1.0.0` or `# 25.01.01 v1.0.0`, the format does not matter, the main thing is that
+   it contains the version.
 5. In the lines below, write a changelog for your version, style to your taste.
 6. Commit your changes.
 
@@ -174,7 +189,8 @@ Alternatively, you can create and push tags using the terminal:
    ```
 
 > [!NOTE]  
-> The tag will reference your current commit, so verify you're on the correct branch and have fetched latest changes from remote first.
+> The tag will reference your current commit, so verify you're on the correct branch and have fetched latest changes
+> from remote first.
 
 ### Creating a new Release on GitHub
 
@@ -183,16 +199,17 @@ To create releases directly on GitHub:
 1. Navigate to the **Actions** section on the repository page.
 2. Select **Publish Release** workflow.
 3. Click **Run workflow** button.
-4. (Optional) Specify the release version. If not specified, the system will automatically determine the version based on your Git history.
+4. (Optional) Specify the release version. If not specified, the system will automatically determine the version based
+   on your Git history.
 5. Click **Run**.
 
-    ![image](https://github.com/user-attachments/assets/088388c1-6055-4d21-8d22-70f047d8f104)
-
+   ![image](https://github.com/user-attachments/assets/088388c1-6055-4d21-8d22-70f047d8f104)
 
 ## Compiling a solution on GitHub
 
-Pushing commits to the remote repository will start a pipeline compiling the solution for all specified Revit versions. 
-That way, you can check if the plugin is compatible with different API versions without having to spend time building it locally.
+Pushing commits to the remote repository will start a pipeline compiling the solution for all specified Revit versions.
+That way, you can check if the plugin is compatible with different API versions without having to spend time building it
+locally.
 
 ## Conditional compilation for a specific Revit version
 
@@ -207,12 +224,13 @@ To write code compatible with different Revit versions, use the directives **#if
 To target a specific Revit version, set the solution configuration in your IDE interface to match that version.
 E.g., select the `Debug.R26` configuration for the Revit 2026 API.
 
-The project has available constants such as `REVIT2026`, `REVIT2026_OR_GREATER`. 
+The project has available constants such as `REVIT2026`, `REVIT2026_OR_GREATER`.
 Create conditions, experiment to achieve the desired result.
 
 > [!NOTE]  
 > For generating directives, a Revit MSBuild SDK is used.
-> You can find more detailed documentation about it here: [Revit MSBuild SDK](https://github.com/Nice3point/Revit.Build.Tasks)
+> You can find more detailed documentation about it
+> here: [Revit MSBuild SDK](https://github.com/Nice3point/Revit.Build.Tasks)
 
 To support the latest APIs in legacy Revit versions:
 
@@ -238,13 +256,15 @@ To support removed APIs in newer versions of Revit, you can invert the constant:
 
 ## Managing Supported Revit Versions
 
-To extend or reduce the range of supported Revit API versions, you need to update the solution and project configurations.
+To extend or reduce the range of supported Revit API versions, you need to update the solution and project
+configurations.
 
 ### Solution configurations
 
 Solution configurations determine which projects are built and how they are configured.
 
 To support multiple Revit versions:
+
 - Open the `.sln` file.
 - Add or remove configurations for each Revit version.
 
@@ -264,13 +284,15 @@ EndGlobalSection
 For example `Debug.R26` is the Debug configuration for Revit 2026 version.
 
 > [!TIP]  
-> If you are just ending maintenance for some version, removing the Solution configurations without modifying the Project configurations is enough.
+> If you are just ending maintenance for some version, removing the Solution configurations without modifying the
+> Project configurations is enough.
 
 ### Project configurations
 
 Project configurations define build conditions for specific versions.
 
 To add or remove support:
+
 - Open `.csproj` file
 - Add or remove configurations for Debug and Release builds.
 
@@ -286,9 +308,11 @@ Example:
 > [!IMPORTANT]  
 > Edit the `.csproj` file only manually, IDEs often break configurations.
 
-Revit MSBuild SDK automatically sets the required `TargetFramework` based on the `RevitVersion`, extracted from the solution configuration name. 
+Revit MSBuild SDK automatically sets the required `TargetFramework` based on the `RevitVersion`, extracted from the
+solution configuration name.
 
-If you need to add support for an unreleased or unsupported version of Revit that the SDK doesn't yet know about, you can add a conditional block to specify the `TargetFramework` manually:
+If you need to add support for an unreleased or unsupported version of Revit that the SDK doesn't yet know about, you
+can add a conditional block to specify the `TargetFramework` manually:
 
 ```xml
 <PropertyGroup>
@@ -303,7 +327,8 @@ To support CI/CD pipelines and build a project for Revit versions not installed 
 > [!NOTE]  
 > Revit API dependencies are available in the [Revit.API](https://github.com/Nice3point/RevitApi) repository.
 
-The Nuget package version must include wildcards `Version="$(RevitVersion).*"` to automatically include adding a specific package version, depending on the selected solution
+The Nuget package version must include wildcards `Version="$(RevitVersion).*"` to automatically include adding a
+specific package version, depending on the selected solution
 configuration.
 
 ```xml

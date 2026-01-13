@@ -1,5 +1,3 @@
-#nullable enable
-
 namespace Pe.Extensions.FamDocument.SetValue.CoercionStrategies;
 
 /// <summary>
@@ -15,9 +13,10 @@ public class CompositeStrategy : ICoercionStrategy {
 
     public Result<FamilyParameter> Map(CoercionContext context) {
         // Try each strategy in order until one succeeds
-        foreach (var strategy in this._strategies)
+        foreach (var strategy in this._strategies) {
             if (strategy.CanMap(context))
                 return strategy.Map(context);
+        }
 
         // This shouldn't happen if CanMap returned true, but handle it anyway
         throw new InvalidOperationException(

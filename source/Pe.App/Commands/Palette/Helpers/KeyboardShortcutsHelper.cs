@@ -1,13 +1,12 @@
-
 using Pe.Global.Services.Storage;
 using Pe.Library.Revit.Ui;
+using Pe.Library.Revit.Utils;
 using Serilog.Events;
 using System.Diagnostics;
+using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Xml.Linq;
-using Pe.Library.Revit.Utils;
-using System.IO;
 
 namespace Pe.App.Commands.Palette.Helpers;
 

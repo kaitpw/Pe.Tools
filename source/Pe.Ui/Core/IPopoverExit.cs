@@ -1,4 +1,3 @@
-#nullable enable
 using System.Windows.Input;
 
 namespace Pe.Ui.Core;

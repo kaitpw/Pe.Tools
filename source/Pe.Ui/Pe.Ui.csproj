@@ -4,8 +4,8 @@
         <UseWPF>true</UseWPF>
         <Configurations>Debug.R22;Debug.R23;Debug.R24;Debug.R25;Debug.R26</Configurations>
         <Configurations>$(Configurations);Release.R22;Release.R23;Release.R24;Release.R25;Release.R26</Configurations>
-        
-         <!-- Default to 2025 for "Debug"/"Release" configs, and also for broader LSP support (e.g. Cursor) -->
+
+        <!-- Default to 2025 for "Debug"/"Release" configs, and also for broader LSP support (e.g. Cursor) -->
         <!-- NOTE: update as Positive Energy migrated to newer Revit Versions -->
         <RevitVersion>2025</RevitVersion>
         <TargetFramework>net8.0-windows</TargetFramework>
@@ -13,7 +13,7 @@
 
     <ItemGroup>
         <!-- Revit Platform -->
-        <PackageReference Include="F23.StringSimilarity" Version="7.0.1" />
+        <PackageReference Include="F23.StringSimilarity" Version="7.0.1"/>
         <PackageReference Include="Nice3point.Revit.Toolkit" Version="$(RevitVersion).*"/>
         <PackageReference Include="Nice3point.Revit.Extensions" Version="$(RevitVersion).*"/>
         <PackageReference Include="Nice3point.Revit.Api.RevitAPI" Version="$(RevitVersion).*"/>
@@ -21,7 +21,7 @@
 
         <!-- MVVM -->
         <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0"/>
-        <PackageReference Include="WPF-UI" Version="4.2.0" />
+        <PackageReference Include="WPF-UI" Version="4.2.0"/>
     </ItemGroup>
 
     <ItemGroup>
@@ -29,8 +29,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Pe.Global\Pe.Global.csproj" />
-      <ProjectReference Include="..\Pe.Library\Pe.Library.csproj" />
+        <ProjectReference Include="..\Pe.Global\Pe.Global.csproj"/>
+        <ProjectReference Include="..\Pe.Library\Pe.Library.csproj"/>
     </ItemGroup>
 
 </Project>

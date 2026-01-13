@@ -1,5 +1,4 @@
 using Autodesk.Revit.DB.Structure;
-using Nice3point.Revit.Extensions;
 using Pe.Extensions.FamDocument;
 using Pe.Extensions.FamDocument.GetValue;
 using Pe.Extensions.FamManager;

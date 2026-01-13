@@ -77,8 +77,7 @@ public class CmdSerializeSchedule : IExternalCommand {
 
             var window = PaletteFactory.Create("Schedule Serializer", items, actions,
                 new PaletteOptions<ScheduleSerializePaletteItem> {
-                    SearchConfig = SearchConfig.PrimaryAndSecondary(),
-                    FilterKeySelector = item => item.TextPill
+                    SearchConfig = SearchConfig.PrimaryAndSecondary(), FilterKeySelector = item => item.TextPill
                 });
             window.Show();
 

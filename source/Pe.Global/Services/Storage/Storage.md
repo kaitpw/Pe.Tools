@@ -1,6 +1,8 @@
-# Storage Service 
+# Storage Service
 
-This Service will be a simple wrapper over file read/write code within a predefined folder structure. Default behavior will ALWAYS be encouraged (where they exist) but flexibility will also be available. Below is what the target folder structure might look like
+This Service will be a simple wrapper over file read/write code within a predefined folder structure. Default behavior
+will ALWAYS be encouraged (where they exist) but flexibility will also be available. Below is what the target folder
+structure might look like
 
 ``` md
 [assembly name]/
@@ -35,33 +37,37 @@ This Service will be a simple wrapper over file read/write code within a predefi
 The purpose of this service is to standardize the way we access local file storage in Revit addins.
 
 - TYPE SAFETY!!!
-- Fast performance. 
+- Fast performance.
 - Generic: type of stored data will always be decided by calling context.
 - Sensible defaults:
-  - Only allows the predefined folders to exist.
-  - Embed default file paths where applicable (i.e. `settings\` and `state\`).
-  - Enforce purpose of each storage type in the API (e.g. `output\` only allows writes).
-  - Standardize a minimal JSON schema for `settings\` jsons.
+    - Only allows the predefined folders to exist.
+    - Embed default file paths where applicable (i.e. `settings\` and `state\`).
+    - Enforce purpose of each storage type in the API (e.g. `output\` only allows writes).
+    - Standardize a minimal JSON schema for `settings\` jsons.
 - Usage: minimally stateful classes, but allows...
-  - dependency injection
-  - consistent Fluent API
-- Tight coupling: datatype of stored json and objects/classes used in code should originate from the same source of truth (if possible)
-- [future] common helper methods for writing to output file types (csv, pdf, rvt, etc.) 
+    - dependency injection
+    - consistent Fluent API
+- Tight coupling: datatype of stored json and objects/classes used in code should originate from the same source of
+  truth (if possible)
+- [future] common helper methods for writing to output file types (csv, pdf, rvt, etc.)
 - [future] common helper methods for working with persisted files (diffing, hashing, opening output file on save, etc.)
-- 
+-
 
 ## Specific Expected Usage Notes
 
-- In the top-level of a command (e.g. in `CmdCommandPalette.cs`) the storage service will be instantiated and injected into later stuff.
+- In the top-level of a command (e.g. in `CmdCommandPalette.cs`) the storage service will be instantiated and injected
+  into later stuff.
 
-- For settings and state jsons required by WPF apps, **view models and models should use JsonSchema.Net and JsonSchema.Net.Generation* to make classes the source of truth for the schemas passed to the Storage service.
-
+- For settings and state jsons required by WPF apps, **view models and models should use JsonSchema.Net and
+  JsonSchema.Net.Generation* to make classes the source of truth for the schemas passed to the Storage service.
 
 ## Default `settings/` schema
 
-The main settings file contains global settings and a reference to the current profile. Profile data is stored in separate files within the `profiles/` subdirectory.
+The main settings file contains global settings and a reference to the current profile. Profile data is stored in
+separate files within the `profiles/` subdirectory.
 
 **settings.json:**
+
 ```json
 {
   "OnProcessingFinish": {
@@ -75,6 +81,7 @@ The main settings file contains global settings and a reference to the current p
 ```
 
 **profiles/Default.json:**
+
 ```json
 {
   "FilterFamilies": {

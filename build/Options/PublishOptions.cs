@@ -4,8 +4,7 @@
 ///     Release publishing options.
 /// </summary>
 [Serializable]
-public sealed record PublishOptions
-{
+public sealed record PublishOptions {
     /// <summary>
     ///     Path to the changelog file.
     /// </summary>

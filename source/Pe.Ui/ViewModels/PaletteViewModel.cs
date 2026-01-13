@@ -1,5 +1,3 @@
-using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
 using Pe.Ui.Core;
 using Pe.Ui.Core.Services;
 using System.Collections.ObjectModel;
@@ -191,12 +189,11 @@ public partial class PaletteViewModel<TItem> : ObservableObject, IPaletteViewMod
             this._searchService.RecordUsage(this.SelectedItem);
     }
 
-#nullable enable
-    /// <summary> Currently selected item </summary>
-    [ObservableProperty] private TItem? _selectedItem;
-
     /// <summary> Previously selected item for efficient selection updates </summary>
     private TItem? _previousSelectedItem;
+
+    /// <summary> Currently selected item </summary>
+    [ObservableProperty] private TItem? _selectedItem;
 #nullable disable
 
     #region Property Change Handlers

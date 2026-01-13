@@ -1,12 +1,6 @@
-﻿using ModularPipelines.Attributes;
-using ModularPipelines.Context;
+﻿namespace Build.Attributes;
 
-namespace Build.Attributes;
-
-public sealed class SkipIfContinuousIntegrationBuild : MandatoryRunConditionAttribute
-{
-    public override Task<bool> Condition(IPipelineHookContext context)
-    {
-        return Task.FromResult(!context.BuildSystemDetector.IsKnownBuildAgent);
-    }
+public sealed class SkipIfContinuousIntegrationBuild : MandatoryRunConditionAttribute {
+    public override Task<bool> Condition(IPipelineHookContext context) =>
+        Task.FromResult(!context.BuildSystemDetector.IsKnownBuildAgent);
 }

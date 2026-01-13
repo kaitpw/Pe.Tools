@@ -3,10 +3,8 @@ using Autodesk.Revit.UI;
 using Pe.FamilyFoundry;
 using Pe.Global.Services.Storage;
 using Pe.Global.Services.Storage.Core;
-using Pe.Global.Services.Storage.Core.Json.SchemaProviders;
 using Pe.Library.Revit.Lib;
 using Pe.Library.Revit.Ui;
-using Pe.Library.Utils.Files;
 using Pe.Tools.Commands.FamilyFoundry.ScheduleManagerUi;
 using Pe.Ui.Components;
 using Pe.Ui.Core;
@@ -310,7 +308,8 @@ public class CmdCreateSchedule : IExternalCommand {
 
         if (allFamilies.Count == 0) {
             new Ballogger()
-                .Add(LogEventLevel.Warning, new StackFrame(), $"No {profile.CategoryName} families found in the project")
+                .Add(LogEventLevel.Warning, new StackFrame(),
+                    $"No {profile.CategoryName} families found in the project")
                 .Show();
             return;
         }

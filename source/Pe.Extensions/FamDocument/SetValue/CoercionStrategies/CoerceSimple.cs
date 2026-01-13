@@ -1,4 +1,3 @@
-#nullable enable
 namespace Pe.Extensions.FamDocument.SetValue.CoercionStrategies;
 
 /// <summary>
@@ -72,9 +71,10 @@ public class CoerceSimple : ICoercionStrategy {
                 // Parse ElementId from format: "ElementName [ID:12345]" or "[ID:12345]"
                 if (TryParseElementId(stringValue, out var idValue))
                     fm.Set(target, new ElementId(idValue));
-                else
+                else {
                     return new ArgumentException(
                         $"Cannot parse ElementId from string: '{stringValue}'. Expected format: 'ElementName [ID:12345]' or '[ID:12345]'");
+                }
             } else
                 fm.Set(target, stringValue);
 
