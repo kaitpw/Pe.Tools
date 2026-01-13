@@ -56,4 +56,10 @@
         <ProjectReference Include="..\Pe.Ui\Pe.Ui.csproj"/>
     </ItemGroup>
 
+    <!-- Only run auto-approve script when launching from IDE, not during regular builds -->
+    <!-- This will only run when building from Rider/Visual Studio, not from command line -->
+    <Target Name="PostBuildAutoApprove" AfterTargets="Build" Condition="'$(BuildingByReSharper)' == 'true'">
+        <Exec Command="powershell.exe -ExecutionPolicy Bypass -NoProfile -File &quot;$(MSBuildProjectDirectory)\AutoApproveAddin.ps1&quot; -ScriptDirectory &quot;$(MSBuildProjectDirectory)&quot;" />
+    </Target>
+
 </Project>
