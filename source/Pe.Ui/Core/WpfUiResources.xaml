@@ -10,9 +10,9 @@
         <ui:ControlsDictionary />
         <!-- Typography overrides MUST come after ControlsDictionary to override WPF.UI defaults -->
         <ResourceDictionary
-            Source="pack://application:,,,/PE_Tools;component/peui/core/TypographyOverrides.xaml" />
+            Source="pack://application:,,,/Pe.Ui;component/Core/TypographyOverrides.xaml" />
         <ResourceDictionary
-            Source="pack://application:,,,/PE_Tools;component/peui/core/WpfOverrides/TextBox.xaml" />
+            Source="pack://application:,,,/Pe.Ui;component/Core/WpfOverrides/TextBox.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
     <!-- Override WPF.UI's focus visual style to be invisible -->

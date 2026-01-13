@@ -14,7 +14,7 @@ Project("{832F14A8-B248-4DD8-8004-3DF028DBB372}") = "Build", "build\Build.csproj
 EndProject
 Project("{832F14A8-B248-4DD8-8004-3DF028DBB372}") = "Installer", "install\Installer.csproj", "{DA2F1078-D093-4D58-B1DE-85A4402E49FF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pe.Application", "source\Pe.Application\Pe.Application.csproj", "{EFCC5284-12BA-4925-84B9-5F74079FEE68}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pe.App", "source\Pe.App\Pe.App.csproj", "{EFCC5284-12BA-4925-84B9-5F74079FEE68}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pe.Ui", "source\Pe.Ui\Pe.Ui.csproj", "{59BCE206-C246-47EC-86D1-1DB889963B93}"
 EndProject

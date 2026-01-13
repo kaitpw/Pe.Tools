@@ -40,7 +40,7 @@ public static class ThemeManager {
 
     public static ResourceDictionary WpfUiResources =>
         _wpfUiResources ??= new ResourceDictionary {
-            Source = new Uri("pack://application:,,,/PE_Tools;component/peui/core/wpfuiresources.xaml",
+            Source = new Uri("pack://application:,,,/Pe.Ui;component/Core/WpfUiResources.xaml",
                 UriKind.Absolute)
         };
 
