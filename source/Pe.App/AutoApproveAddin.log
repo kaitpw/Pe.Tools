@@ -172,3 +172,15 @@
 [2026-01-15 00:42:41] SUCCESS: Handled 1 security dialog(s)
 [2026-01-15 00:42:41] Script finished
 [2026-01-15 00:42:41] WARNING: Auto-open document script not found at: C:\Users\kaitp\source\repos\Pe.Tools\source\Pe.App\AutoOpenDocument.ps1
+[2026-01-15 11:55:16] Auto-approval script started (Timeout: 60 seconds)
+[2026-01-15 11:55:18] Revit process found (PID: 27596)
+[2026-01-15 11:55:18] Polling for security dialogs...
+[2026-01-15 11:58:02] FATAL ERROR: Exception calling "FindAll" with "2" argument(s): "Operation timed out. (Exception from HRESULT: 0x80131505)"
+[2026-01-15 12:26:36] Auto-approval script started (Timeout: 60 seconds)
+[2026-01-15 12:26:38] Revit process found (PID: 50620)
+[2026-01-15 12:26:38] Polling for security dialogs...
+[2026-01-15 12:27:08] SUCCESS: Clicked 'Always Load' on dialog #1 (closed after 29.9s)
+[2026-01-15 12:27:23] No new dialogs for 0.5 seconds, exiting early
+[2026-01-15 12:27:25] SUCCESS: Handled 1 security dialog(s)
+[2026-01-15 12:27:25] Script finished
+[2026-01-15 12:27:25] WARNING: Auto-open document script not found at: C:\Users\kaitp\source\repos\Pe.Tools\source\Pe.App\AutoOpenDocument.ps1
