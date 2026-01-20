@@ -381,3 +381,26 @@
 [2026-01-19 19:56:34] SUCCESS: Handled 1 security dialog(s)
 [2026-01-19 19:56:34] Script finished
 [2026-01-19 19:56:34] WARNING: Auto-open document script not found at: C:\Users\kaitp\source\repos\Pe.Tools\source\Pe.App\AutoOpenDocument.ps1
+[2026-01-19 21:09:41] Auto-approval script started (Timeout: 60 seconds)
+[2026-01-19 21:09:52] Revit process found (PID: 45676)
+[2026-01-19 21:09:52] Polling for security dialogs...
+[2026-01-19 21:11:03] SUCCESS: Clicked 'Always Load' on dialog #1 (closed after 70.87s)
+[2026-01-19 21:11:21] SUCCESS: Handled 1 security dialog(s)
+[2026-01-19 21:11:21] Script finished
+[2026-01-19 21:11:21] WARNING: Auto-open document script not found at: C:\Users\kaitp\source\repos\Pe.Tools\source\Pe.App\AutoOpenDocument.ps1
+[2026-01-19 21:53:36] Auto-approval script started (Timeout: 60 seconds)
+[2026-01-19 21:53:49] Revit process found (PID: 42472)
+[2026-01-19 21:53:49] Polling for security dialogs...
+[2026-01-19 21:54:21] SUCCESS: Clicked 'Always Load' on dialog #1 (closed after 32.29s)
+[2026-01-19 21:54:34] No new dialogs for 0.5 seconds, exiting early
+[2026-01-19 21:55:07] SUCCESS: Handled 1 security dialog(s)
+[2026-01-19 21:55:07] Script finished
+[2026-01-19 21:55:07] WARNING: Auto-open document script not found at: C:\Users\kaitp\source\repos\Pe.Tools\source\Pe.App\AutoOpenDocument.ps1
+[2026-01-19 22:34:33] Auto-approval script started (Timeout: 60 seconds)
+[2026-01-19 22:34:36] Revit process found (PID: 30924)
+[2026-01-19 22:34:36] Polling for security dialogs...
+[2026-01-19 22:35:16] SUCCESS: Clicked 'Always Load' on dialog #1 (closed after 39.29s)
+[2026-01-19 22:35:30] No new dialogs for 0.5 seconds, exiting early
+[2026-01-19 22:35:32] SUCCESS: Handled 1 security dialog(s)
+[2026-01-19 22:35:32] Script finished
+[2026-01-19 22:35:32] WARNING: Auto-open document script not found at: C:\Users\kaitp\source\repos\Pe.Tools\source\Pe.App\AutoOpenDocument.ps1
