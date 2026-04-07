@@ -1,20 +1,8 @@
-﻿using Build.Attributes;
-using Build.Options;
-using Microsoft.Extensions.Options;
-using Microsoft.VisualStudio.SolutionPersistence.Model;
-using Microsoft.VisualStudio.SolutionPersistence.Serializer;
-using ModularPipelines.Context;
+﻿using ModularPipelines.Context;
 using ModularPipelines.Git.Extensions;
 using ModularPipelines.Modules;
-using Sourcy.DotNet;
-using ModularPipelines.Attributes;
-using ModularPipelines.Context;
-using ModularPipelines.DotNet.Extensions;
-using ModularPipelines.DotNet.Options;
-using ModularPipelines.Models;
-using ModularPipelines.Modules;
 using Shouldly;
-using Sourcy.DotNet;
+using System.Xml.Linq;
 
 namespace Build.Modules;
 
@@ -22,27 +10,30 @@ namespace Build.Modules;
 ///     Resolve solution configurations required to compile the add-in for all supported Revit versions.
 /// </summary>
 public sealed class ResolveConfigurationsModule : Module<string[]> {
-    protected override async Task<string[]?>
-        ExecuteAsync(IPipelineContext context, CancellationToken cancellationToken) {
-        var solutionModel = await LoadSolutionModelAsync(context, cancellationToken);
-        var configurations = solutionModel.BuildTypes
-            .Where(configuration => configuration.Contains("Release.R", StringComparison.OrdinalIgnoreCase))
+    protected override Task<string[]?> ExecuteAsync(IPipelineContext context, CancellationToken cancellationToken) {
+        var configurations = LoadConfigurations(context, cancellationToken)
+            .Where(configuration => configuration.StartsWith("Release.R", StringComparison.OrdinalIgnoreCase))
+            .Where(configuration => !configuration.Contains(".Tests", StringComparison.OrdinalIgnoreCase))
             .ToArray();
 
-        configurations.ShouldNotBeEmpty("No solution configurations have been found");
+        configurations.ShouldNotBeEmpty("No release configurations have been found in Directory.Build.props");
 
-        return configurations;
+        return Task.FromResult<string[]?>(configurations);
     }
 
-    private static async Task<SolutionModel> LoadSolutionModelAsync(IPipelineContext context,
-        CancellationToken cancellationToken) {
-        var solution = context.Git().RootDirectory.FindFile(file => file.Extension == ".slnx");
-        if (solution is not null)
-            return await SolutionSerializers.SlnXml.OpenAsync(solution.GetStream(), cancellationToken);
+    private static IEnumerable<string> LoadConfigurations(IPipelineContext context, CancellationToken cancellationToken) {
+        cancellationToken.ThrowIfCancellationRequested();
 
-        solution = context.Git().RootDirectory.FindFile(file => file.Extension == ".sln");
-        solution.ShouldNotBeNull("Solution file not found.");
+        var propsFile = context.Git().RootDirectory.GetFile("Directory.Build.props");
+        propsFile.Exists.ShouldBeTrue("Directory.Build.props not found.");
 
-        return await SolutionSerializers.SlnFileV12.OpenAsync(solution.GetStream(), cancellationToken);
+        var document = XDocument.Load(propsFile.Path);
+
+        return document
+            .Descendants("Configurations")
+            .SelectMany(element => (element.Value ?? string.Empty)
+                .Split(';', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries))
+            .Where(configuration => !configuration.StartsWith("$(", StringComparison.Ordinal))
+            .Distinct(StringComparer.OrdinalIgnoreCase);
     }
 }
