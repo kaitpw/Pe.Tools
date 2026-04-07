@@ -14,7 +14,7 @@ on:
 jobs:
   windows:
     name: windows-2025
-    runs-on: windows-2025
+    runs-on: blacksmith-4vcpu-windows-2025
     steps:
 
       - name: Checkout
